@@ -84,6 +84,32 @@ Normal Equations - Any $b$ satistfying this solves the least squares
 Gauss Markov Theorem - $\hat{\beta} (X^T X)^{-1} y$ is Best Linear Unbiased
 Estimator (BLUE) of $\beta$.
 
+Estimating the variance: $\frac{\norm{y - X \hat{\beta}}^2}{\sigma^2} \sim
+\chi^2_{n-p}$.
+\[
+    \hat{\sigma}^2 = \frac{\norm{y - X \hat{\beta}}^2}{n - p}
+\]
+
+Use t test for hypothesis testing and confidence intervals for the value of
+a particular $\beta_j$ coefficient.
+\[
+    \frac{\beta_j - \beta_j^*}{\hat{\sigma} \sqrt{w_{ii}}} \sim t_{n-p}
+\]
+
+General linear tests. Partition $\beta = (\beta_1, \beta_2)$ where $\beta_1$
+is an $r$ vector and $\beta_2$ is $p - r$. Null hypothesis $H_0: \beta_2 =
+\beta_2^*$ (often 0), and $H_a: \beta_2 \neq \beta_2^*$. Then
+$SSE_r = \norm{y - X_2 \beta_2^* - X_1 \tilde{\beta_1}}^2$ is the sum of
+squared error for the reduced model and 
+$SSE_f = \norm{y - X \hat{\beta}}^2$ is the squared sum of error for the
+full model.
+Under $H_0$:
+\[
+    \frac{\frac{SSE_r - SSE_f}{p - r}}
+         {\frac{SSE_f}{n - p}}
+         \sim F_{p-r, n-p}
+\]
+
 \subsection{General Techniques}
 
 Singular Value Decompostion (SVD) Any matrix $X$ can be written
@@ -100,10 +126,22 @@ either 0 or 1.
     P = P^T \qquad P^2 = P
 \]
 
+\subsection{Distributions}
+
 Multivariate Normal $y \sim N(\mu, \Sigma)$, $A$ an $m \times n$ matrix,
 then 
 \[
     Ay \sim N(A \mu, A \Sigma A^t)
 \]
 
+Noncentral $\chi^2$. Let $Y \sim N(\mu, I)$ be an $n$ vector. Then 
+\[
+    \norm{Y}^2 \sim \chi^2_n(\norm(\mu)^2)
+\]
+
+F
+
+T
+
+Students
 \end{document}
