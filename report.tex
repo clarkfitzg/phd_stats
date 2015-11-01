@@ -110,6 +110,48 @@ Under $H_0$:
          \sim F_{p-r, n-p}
 \]
 
+Alternate forms of linear test, and testing a linear combination if $R\beta
+= r$.
+\[
+    \frac{(R \hat{\beta} - r)^T (R(X^T X)^{-1} R^T)^{-1} (R \beta - r) / s}
+    {\hat{\sigma}}^2 \sim F_{s, n-p}
+\]
+
+Confidence intervals for new observation $Y_h$ and $E[Y_h]$.
+
+Simultaneous confidence bands for all $f(x)$.
+
+If the model has an intercept then $SSTO = SSR + SSE$.
+\[
+    \sum (y_i - \bar{y})^2 = \sum (\hat{y_i} = \bar{y})^2 + (yi -
+    \hat{yi})^2
+\]
+
+$R^2$ and adjusted $R^2$
+
+\subsection{ANOVA}
+
+Three principles of experimental design: 1) Replication 2) Randomization 3)
+Blocking
+
+One way ANOVA with $n$ total observations, $K$ groups:
+
+{
+\centering
+\begin{tabular}{lll}
+    SS   &  & DF     \\
+    SSTR & $\sum_{j=1}^K n_j (\bar{y_{j \cdot}} - \bar{y_{\cdot \cdot}})^2$  & K - 1 \\
+    SSE  & $\sum_{i=1}^n (y_{ij} - \bar{y_{j \cdot}})^2$  & n - K \\
+    SSTO & $\sum_{i=1}^n (y_{ij} - \bar{y_{\cdot \cdot}})^2$  & n - 1 
+\end{tabular}
+}
+
+Contrasts are sums of the form $\Phi = \sum_{i=1}^K c_i \mu_i$ with
+$\sum_{i=1}^K c_i = 0$.
+Tukey's works for all pairwise contrasts.
+Scheffe's and extended Tukey works for all contrasts.
+Bonferroni's is for a limited number of pre specified contrasts.
+
 \subsection{General Techniques}
 
 Singular Value Decompostion (SVD) Any matrix $X$ can be written
@@ -124,6 +166,11 @@ Projection matrix $P$ are symmetric and idempotent. They have eigenvalues
 either 0 or 1.
 \[
     P = P^T \qquad P^2 = P
+\]
+
+Covariance of linear transformations
+\[
+    Cov(Ay, Bx) = A Cov(y, x) B^T
 \]
 
 \subsection{Distributions}
@@ -143,5 +190,9 @@ F
 
 T
 
-Students
+Studentized range distribution. Let $z_1, \dots z_K$ be i.i.d $N(0, 1)$ and
+$X$ be an independent $\chi^2_\nu$. Then
+\[
+    \frac{\max_i z_i - \min_i z_i}{\sqrt(X / \nu)} \sim q_{K, \nu}
+\]
 \end{document}
