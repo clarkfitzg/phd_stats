@@ -4,6 +4,7 @@
 %   $ pdflatex paper.tex 
 %
 
+%\documentclass[10pt, twocolumn]{article}
 \documentclass[12pt]{article}
 
 % Begin paragraphs with new line
@@ -173,17 +174,22 @@ Covariance of linear transformations
     Cov(Ay, Bx) = A Cov(y, x) B^T
 \]
 
-\subsection{Distributions}
+\section{Distributions}
 
 Multivariate Normal $y \sim N(\mu, \Sigma)$, $A$ an $m \times n$ matrix,
 then 
 \[
     Ay \sim N(A \mu, A \Sigma A^t)
 \]
+For $\Sigma$ full rank it's possible to transform between $z \sim
+N(0, I)$ and $y$:
+\[
+    y = \Sigma^{1/2} z + \mu \qquad z = \Sigma^{-1/2} (y - \mu)
+\]
 
 Noncentral $\chi^2$. Let $Y \sim N(\mu, I)$ be an $n$ vector. Then 
 \[
-    \norm{Y}^2 \sim \chi^2_n(\norm(\mu)^2)
+    \norm{Y}^2 \sim \chi^2_n(\norm{\mu}^2)
 \]
 
 F
@@ -195,4 +201,33 @@ $X$ be an independent $\chi^2_\nu$. Then
 \[
     \frac{\max_i z_i - \min_i z_i}{\sqrt(X / \nu)} \sim q_{K, \nu}
 \]
+
+\subsection{Gamma}
+
+Gamma($p, \lambda$)
+pdf: 
+\[
+    \frac{\lambda^p x^{p-1} e^{-\lambda x}}{\Gamma(p)}
+    \qquad x > 0
+\]
+
+$X \sim \text{Gamma}(p, \lambda) \iff \lambda X \sim \text{Gamma}(p, 1)$
+
+Gamma function: $\Gamma(p) = \int_0^\infty t^{p-1} e^{-t} dt$.
+
+$\Gamma(1/2) = \sqrt{\pi}$.
+
+$\Gamma(p + 1) = p \Gamma(p)$
+
+$\Gamma(k) = (k-1)!$ for $k$ positive integer.
+
+\subsection{Chi square}
+
+$\chi^2_n$
+Special case: $\chi^2_n \equiv \text{Gamma}(\frac{n}{2}, \frac{1}{2})$
+
+Let $Z_i$ be iid $N(0, 1)$.
+
+$\sum_{i=1}^n Z_i^2 \sim \chi^2_n$
+
 \end{document}
