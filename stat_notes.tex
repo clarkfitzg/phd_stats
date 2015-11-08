@@ -130,9 +130,20 @@ Noncentral $\chi^2$. Let $Y \sim N(\mu, I)$ be an $n$ vector. Then
     \norm{Y}^2 \sim \chi^2_n(\norm{\mu}^2)
 \]
 
-F
+\subsection{F}
+\[
+    F(m, n) \equiv \frac{\frac{\chi^2_m}{m}}
+        {\frac{\chi^2_n}{n}}
+\]
+Where numerator and denominator are independent $\chi^2$.
 
-T
+\subsection{T}
+\[
+    t(n) = \frac{N(0, 1)}
+    {\sqrt{\frac{\chi^2_n}{n}}}
+\]
+Where numerator and denominator are independent.
+
 
 \subsection{Studentized range distribution}
 
@@ -147,6 +158,11 @@ $X$ be an independent $\chi^2_\nu$. Then
 \newpage
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \section{Math}
+
+Order statistics for sorted sample $X_{(1)}, \dots, X_{(n)}$ has pdf:
+\[
+    n! \prod_{i=1}^n f(X_{(i)}) \quad I(X_{(1)} < \dots < X_{(n)})
+\]
 
 \subsection{Multivariate Normal}
 
@@ -304,15 +320,40 @@ Covariance of linear transformations
 \subsection{Applied}
 
 4 Nov - Interaction plots for two way ANOVA with balanced design, Linear
-models with random $X$.
+models with random $X$
 
 2 Nov - Midterm
 
+28 Oct - Kronecker product formulae for two way ANOVA
+
+26 Oct - Kronecker product 1 way ANOVA, decomposition of two way ANOVA,
+noncentral $\chi^2$ distributions for ANOVA table SSA, SSB, SSAB
+
+21 Oct - Tukey's method for pairwise contrasts, Bonferroni's method,
+definition and properties of Kronecker product
+
 \subsection{Math}
 
-2 Nov - Location-scale families, invariance, ancillary and sufficient
-statistics, order statistics, multinomial distribution.
-
 4 Nov - Midterm
+
+2 Nov - Location-scale families, invariance, ancillary and sufficient
+statistics, order statistics, multinomial distribution
+
+28 Oct - Transformation of discrete and continuous random variables,
+Jacobian, examples with beta distributions, Dirichlet distribution
+
+26 Oct - Jensen's and Holder's inequality, convex functions and sets,
+products of normal random variables
+
+21 Oct - Convolution formula, examples with Uniform, Gamma, Poisson,
+marginal and conditional distributions for multivariate normal
+\newpage
+
+\section{Miscellaneous}
+
+Integration by parts:
+\[
+    \int uv' = uv - \int u'v
+\]
 
 \end{document}

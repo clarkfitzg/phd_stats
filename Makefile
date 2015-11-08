@@ -1,6 +1,6 @@
 # Name of the report
 # Required
-TEXFILE = report
+TEXFILE = stat_notes
 
 all: $(TEXFILE).pdf
 
