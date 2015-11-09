@@ -97,6 +97,23 @@ $X \sim N(\mu, \Sigma)$, $\Sigma$ positive definite
         {(2\pi)^{\frac{k}{2}} \sqrt{\det(\Sigma)}}
 \]
 
+\subsection{Beta}
+
+$ X \sim \text{Beta}(\alpha, \beta)$
+\[
+    f(x) = \frac{x^{\alpha-1}(1 - x)^{\beta-1}}{B(\alpha, \beta)} 
+    \qquad 0 \leq x \leq 1
+\]
+using the beta function:
+\[
+    B(\alpha, \beta) =
+    \frac{\Gamma(\alpha) \Gamma(\beta)}{\Gamma(\alpha+ \beta)} =
+    \int_0^1 t^{\alpha -1} (1-t)^{\beta - 1}dt
+\]
+    
+$\Expect X = \frac{\alpha}{\alpha + \beta},
+\quad \Var X = \frac{\alpha \beta}{(\alpha + \beta)^2 (\alpha + \beta + 1)}$
+
 \subsection{Gamma}
 
 $X \sim \text{Gamma}(p, \lambda)$
@@ -105,7 +122,6 @@ $X \sim \text{Gamma}(p, \lambda)$
     \qquad x > 0
 \]
 mgf: 
-
 $X \sim \text{Gamma}(p, \lambda) \iff \lambda X \sim \text{Gamma}(p, 1)$
 
 Gamma function: $\Gamma(p) = \int_0^\infty t^{p-1} e^{-t} dt$.
