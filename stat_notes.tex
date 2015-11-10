@@ -236,8 +236,11 @@ Normal Equations - Any $b$ satistfying this solves the least squares
     X^T X b = X^T y
 \]
 
-Gauss Markov Theorem - $\hat{\beta} (X^T X)^{-1} y$ is Best Linear Unbiased
+Gauss Markov Theorem - $\hat{\beta}$ is Best Linear Unbiased
 Estimator (BLUE) of $\beta$.
+\[
+    \hat{\beta} = (X^T X)^{-1} X^T y \sim N(\beta, \sigma (X^T X)^{-1})
+\]
 
 Estimating the variance: $\frac{\norm{y - X \hat{\beta}}^2}{\sigma^2} \sim
 \chi^2_{n-p}$.
@@ -246,9 +249,19 @@ Estimating the variance: $\frac{\norm{y - X \hat{\beta}}^2}{\sigma^2} \sim
 \]
 
 Use t test for hypothesis testing and confidence intervals for the value of
-a particular $\beta_j$ coefficient.
+a particular $\beta_j$ coefficient. 
+Let $w_{ii}$ be the $i$th diagonal entry of $(X^T X)^{-1}$.
 \[
     \frac{\beta_j - \beta_j^*}{\hat{\sigma} \sqrt{w_{ii}}} \sim t_{n-p}
+\]
+$1 - \alpha$ Confidence intervals for new observation $Y_h$ at $x_h$ and $E[Y_h]$:
+\[
+    E[y_h] \approx \hat{y_h} \pm t(n-p, 1 - \frac{\alpha}{2}) \hat{\sigma}
+        \sqrt{x_h^T (X^T X)^{-1} x_h}
+\]
+\[
+    y_h \approx \hat{y_h} \pm t(n-p, 1 - \frac{\alpha}{2}) \hat{\sigma}
+        \sqrt{1 + x_h^T (X^T X)^{-1} x_h}
 \]
 
 General linear tests. Partition $\beta = (\beta_1, \beta_2)$ where $\beta_1$
@@ -271,9 +284,6 @@ Alternate forms of linear test, and testing a linear combination if $R\beta
     \frac{(R \hat{\beta} - r)^T (R(X^T X)^{-1} R^T)^{-1} (R \beta - r) / s}
     {\hat{\sigma}}^2 \sim F_{s, n-p}
 \]
-
-Confidence intervals for new observation $Y_h$ and $E[Y_h]$.
-
 Simultaneous confidence bands for all $f(x)$.
 
 If the model has an intercept then $SSTO = SSR + SSE$.
