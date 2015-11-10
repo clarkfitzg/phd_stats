@@ -175,6 +175,22 @@ $X$ be an independent $\chi^2_\nu$. Then
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \section{Math}
 
+\subsection{Inequalities}
+
+\textbf{Jensen's Inequality} if $S \subset R^k$ convex and closed, $g$ convex on $S$, $P[X
+\in S] = 1$, and $\Expect X$ is finite, then $\Expect X \in S$, $\Expect
+g(X)$ exists, and
+\[
+    \Expect g(X) \geq g(\Expect X)
+\]
+
+\textbf{Holder's Inequality} if $r, s > 1$ and $\frac{1}{r} + \frac{1}{s} =
+1$ then
+\[
+    \Expect |XY| \leq (\Expect |X|^r)^{\frac{1}{r}}(\Expect |X|^s)^{\frac{1}{s}}
+\]
+
+
 Order statistics for sorted sample $X_{(1)}, \dots, X_{(n)}$ has pdf:
 \[
     n! \prod_{i=1}^n f(X_{(i)}) \quad I(X_{(1)} < \dots < X_{(n)})
