@@ -50,6 +50,7 @@
 \newcommand{\inorm}[1]{\left\lVert#1\right\rVert_\infty}
 
 % Statistics essentials
+\newcommand{\iid}{\text{ iid }}
 \newcommand{\Expect}{\operatorname{E}}
 \newcommand{\Var}{\operatorname{Var}}
 \newcommand{\Cov}{\operatorname{Cov}}
@@ -116,25 +117,34 @@ $\Expect X = \frac{\alpha}{\alpha + \beta},
 
 \subsection{Gamma}
 
-$X \sim \text{Gamma}(p, \lambda)$
+$X \sim \text{Gamma}(\alpha, \lambda)$
 \[
-    f(x) = \frac{\lambda^p x^{p-1} e^{-\lambda x}}{\Gamma(p)}
+    f(x) = \frac{\lambda^\alpha x^{\alpha-1} e^{-\lambda x}}{\Gamma(\alpha)}
     \qquad x > 0
 \]
-mgf: 
-$X \sim \text{Gamma}(p, \lambda) \iff \lambda X \sim \text{Gamma}(p, 1)$
+mgf: $M_X (t) = (1 - \frac{t}{\lambda})^{-\alpha}, t < \lambda$
 
-Gamma function: $\Gamma(p) = \int_0^\infty t^{p-1} e^{-t} dt$.
+$X \sim \text{Gamma}(\alpha, \lambda) \iff \lambda X \sim \text{Gamma}(\alpha, 1)$
+
+$X_i \iid \text{Gamma}(\alpha_i, \lambda)$, then
+\[
+    \sum X_i \sim \text{Gamma}(\sum \alpha_i, \lambda)
+\]
+
+Gamma function: $\Gamma(\alpha) = \int_0^\infty t^{\alpha-1} e^{-t} dt$.
 
 $\Gamma(\frac{1}{2}) = \sqrt{\pi}$.
 
-$\Gamma(p + 1) = p \Gamma(p)$
+$\Gamma(\alpha + 1) = \alpha \Gamma(\alpha)$
 
 $\Gamma(k) = (k-1)!$ for $k$ positive integer.
 
+\subsection{Exponential}
+
+Special case: $\text{Exp}(\lambda) \equiv \text{Gamma}(1, \lambda)$
+
 \subsection{Chi square}
 
-$\chi^2_n$
 Special case: $\chi^2_n \equiv \text{Gamma}(\frac{n}{2}, \frac{1}{2})$
 
 Let $Z_i$ be iid $N(0, 1)$.
