@@ -206,6 +206,15 @@ Order statistics for sorted sample $X_{(1)}, \dots, X_{(n)}$ has pdf:
     n! \prod_{i=1}^n f(X_{(i)}) \quad I(X_{(1)} < \dots < X_{(n)})
 \]
 
+\subsection{Bias, Variance}
+
+$\text{bias } \hat{v} \equiv \Expect (\hat{v}) - v$
+
+\[
+    MSE(\hat{v}) \equiv \Expect (\hat{v} - v)^2 
+    = (\text{bias } \hat{v})^2 + \Var (\hat{v})
+\]
+
 \subsection{Multivariate Normal}
 
 $X \sim N(\mu, \Sigma)$, $A$ an $m \times n$ matrix,
