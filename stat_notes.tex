@@ -206,6 +206,11 @@ Order statistics for sorted sample $X_{(1)}, \dots, X_{(n)}$ has pdf:
     n! \prod_{i=1}^n f(X_{(i)}) \quad I(X_{(1)} < \dots < X_{(n)})
 \]
 
+Factorization theorem: A statistic $T(x)$ is sufficient $\iff$
+\[
+    f_{\theta}(x) = h(x) g(\theta, T(x))
+\]
+
 \subsection{Bias, Variance}
 
 $\text{bias } \hat{v} \equiv \Expect (\hat{v}) - v$
@@ -216,6 +221,12 @@ $\text{bias } \hat{v} \equiv \Expect (\hat{v}) - v$
 \]
 
 \subsection{Multivariate Normal}
+
+Stein's formula: $X \sim N(\mu, \sigma)$
+\[
+    \Expect (g(X) (X - \mu)) = \sigma^2 \Expect(g'(X))
+\]
+assuming these expectations are finite.
 
 $X \sim N(\mu, \Sigma)$, $A$ an $m \times n$ matrix,
 then 
@@ -380,6 +391,12 @@ Covariance of linear transformations
 
 \subsection{Applied}
 
+16 Nov - Multicollinearity, Variance Inflation Factor,
+ridge regression, bias variance tradeoff, AIC, BIC, cross validation, proof leave
+one out cross validation formula for OLS 
+
+11 Nov - Holiday
+
 9 Nov - Linear model with random $X$, transformations of $y$ and $X$, box
 cox procedure, bootstrap with percentile-t and fixed $X$ sampling, weighted
 least squares
@@ -398,6 +415,11 @@ noncentral $\chi^2$ distributions for ANOVA table SSA, SSB, SSAB
 definition and properties of Kronecker product
 
 \subsection{Math}
+
+16 Nov - Minimal sufficiency, likelihood ratio, ancillary statistics,
+completeness, Basu's theorem, loss functions
+
+11 Nov - Holiday
 
 9 Nov - Distribution of order statistics, factorization theorem, sufficient
 statistics for Exponential families and uniform dist
