@@ -206,10 +206,17 @@ Order statistics for sorted sample $X_{(1)}, \dots, X_{(n)}$ has pdf:
     n! \prod_{i=1}^n f(X_{(i)}) \quad I(X_{(1)} < \dots < X_{(n)})
 \]
 
-Factorization theorem: A statistic $T(x)$ is sufficient $\iff$
+Factorization theorem: $T(x)$ is sufficient $\iff$
 \[
     f_{\theta}(x) = h(x) g(\theta, T(x))
 \]
+
+The likelihood ratio
+\[
+    \lambda_x (\theta) = \frac{L_X (\theta)}{L_X (\theta_0)}
+\]
+is minimal sufficient. To show $T(x)$ is minimal sufficient show that it is
+sufficient and a function of the likelihood $\lambda_x (\theta)$.
 
 \subsection{Bias, Variance}
 
@@ -217,7 +224,7 @@ $\text{bias } \hat{v} \equiv \Expect (\hat{v}) - v$
 
 \[
     MSE(\hat{v}) \equiv \Expect (\hat{v} - v)^2 
-    = (\text{bias } \hat{v})^2 + \Var (\hat{v})
+    = \Var (\hat{v}) + (\text{bias } \hat{v})^2
 \]
 
 \subsection{Multivariate Normal}
@@ -391,6 +398,9 @@ Covariance of linear transformations
 
 \subsection{Applied}
 
+18 Nov - F test with orthogonalized X, model selection criteria,
+bootstrap t method in lab
+
 16 Nov - Multicollinearity, Variance Inflation Factor,
 ridge regression, bias variance tradeoff, AIC, BIC, cross validation, proof leave
 one out cross validation formula for OLS 
@@ -415,6 +425,9 @@ noncentral $\chi^2$ distributions for ANOVA table SSA, SSB, SSAB
 definition and properties of Kronecker product
 
 \subsection{Math}
+
+18 Nov - Rao-Blackwell theorem, Lehmann-Scheffe theorem, UMVUE examples for
+normal, uniform, Poisson, Fisher information
 
 16 Nov - Minimal sufficiency, likelihood ratio, ancillary statistics,
 completeness, Basu's theorem, loss functions
