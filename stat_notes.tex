@@ -211,12 +211,23 @@ Factorization theorem: $T(x)$ is sufficient $\iff$
     f_{\theta}(x) = h(x) g(\theta, T(x))
 \]
 
+$L_x (\theta) = p_\theta (x) = p(x, \theta)$ likelihood is function of
+$\theta$, density is function of $x$.
+
 The likelihood ratio
 \[
-    \lambda_x (\theta) = \frac{L_X (\theta)}{L_X (\theta_0)}
+    \lambda_x (\theta) = \frac{L_x (\theta)}{L_x (\theta_0)}
 \]
 is minimal sufficient. To show $T(x)$ is minimal sufficient show that it is
 sufficient and a function of the likelihood $\lambda_x (\theta)$.
+
+\textbf{Fisher information}
+\[
+    I(\theta) = \Expect_\theta \left[ \frac{\partial}{\partial \theta} 
+    \log L_X (\theta) \right]^2
+    = \Expect_\theta \left[ - \frac{\partial^2}{\partial \theta^2}
+    \log L_X (\theta) \right]
+\]
 
 \subsection{Bias, Variance}
 
