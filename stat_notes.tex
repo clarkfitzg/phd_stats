@@ -283,6 +283,10 @@ Conditional variance formula:
 
 Matrix / Vector differentiation
 
+$\frac{\partial A^T \beta}{\partial \beta} = A$, 
+$\frac{\partial \beta^T A \beta}{\partial \beta} = (A + A^t) \beta =
+2A\beta$ for $A$ symmetric.
+
 \subsection{Linear Models}
 
 Least Squares Principle
@@ -380,6 +384,11 @@ $\sum_{i=1}^K c_i = 0$.
 Tukey's works for all pairwise contrasts.
 Scheffe's and extended Tukey works for all contrasts.
 Bonferroni's is for a limited number of pre specified contrasts.
+
+\textbf{Ridge Regression} for $\lambda > 0$ solves
+\[
+    \min_\beta ||Y - X\beta||^2 + \lambda ||\beta||^2
+\]
 
 \subsection{General Techniques}
 
