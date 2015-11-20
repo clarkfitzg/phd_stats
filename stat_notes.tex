@@ -238,6 +238,31 @@ $\text{bias } \hat{v} \equiv \Expect (\hat{v}) - v$
     = \Var (\hat{v}) + (\text{bias } \hat{v})^2
 \]
 
+\subsection{Exponential Families}
+One parameter model indexed by $\theta$.
+\[
+    p(x, \theta) = h(x) \exp \{ \eta(\theta) T(x) - B(\theta) \}
+\]
+Canonical form model indexed by $\eta$.
+\[
+    q(x, \eta) = h(x) \exp \{ \eta T(x) - A(\eta) \}
+\]
+Then moment generating function
+\[
+    M(t) = \exp \{A(t + \eta) - A(\eta) \}
+\]
+
+Moment generating functions determine distribution
+\[
+    M_X(t) \equiv \Expect (e^{tX}),
+    \quad M_X'(0) = \Expect(X)
+\]
+For $X_i$ independently distributed:
+\[
+    M_{\sum X_i} (t) = \prod M_{X_i} (t)
+\]
+Use this to find distributions of sums of RV's.
+
 \subsection{Multivariate Normal}
 
 Stein's formula: $X \sim N(\mu, \sigma)$
@@ -502,5 +527,27 @@ normal $x_i$.
 Better to write more than to make a simple algebra mistake.
 Practice common manipulations so don't have to think about them
 when testing.
+
+\begin{table}[]
+    \centering
+    \caption{Problems in past 231 exams}
+    \label{231problems}
+    \begin{tabular}{ll}
+        Poisson     & * \\
+        Gamma       & * \\
+        Geometric      & * \\
+        Uniform & * \\
+        Normal  & * \\
+        UMVUE / Cramer-Rao  & * \\
+        Bayes estimator / risk & * \\
+        minimiax    & * \\
+        method of moments   & * \\
+        UMP test  & * \\
+        asymptotic distribution & * \\
+        sufficient statistic    & * \\
+        MLE & * \\
+
+    \end{tabular}
+\end{table}
 
 \end{document}
