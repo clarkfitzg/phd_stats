@@ -185,6 +185,17 @@ $X$ be an independent $\chi^2_\nu$. Then
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \section{Math}
 
+Moment generating functions determine distribution
+\[
+    M_X(t) \equiv \Expect (e^{tX}),
+    \quad M_X'(0) = \Expect(X)
+\]
+For $X_i$ independently distributed:
+\[
+    M_{\sum X_i} (t) = \prod M_{X_i} (t)
+\]
+Use this to find distributions of sums of RV's.
+
 \subsection{Inequalities}
 
 \textbf{Jensen's Inequality} if $S \subset R^k$ convex and closed, $g$ convex on $S$, $P[X
@@ -205,6 +216,9 @@ Order statistics for sorted sample $X_{(1)}, \dots, X_{(n)}$ has pdf:
 \[
     n! \prod_{i=1}^n f(X_{(i)}) \quad I(X_{(1)} < \dots < X_{(n)})
 \]
+
+$T(X)$ Sufficient means the distribution of $X | T(X)$ does not depend on
+$\theta$.
 
 Factorization theorem: $T(x)$ is sufficient $\iff$
 \[
@@ -238,13 +252,27 @@ $\text{bias } \hat{v} \equiv \Expect (\hat{v}) - v$
     = \Var (\hat{v}) + (\text{bias } \hat{v})^2
 \]
 
-\textbf{Completeness}
+\textbf{Rao-Blackwell} Let $S(X)$ be an unbiased point estimator for
+$g(\theta)$. Conditioning on a sufficient statistic $T(X)$ reduces
+variance.
+\[
+    \Var_{\theta} (S(X)) \geq \Var_{\theta} (\Expect (S(X) | T(X)))
+\]
+Also holds for more general convex loss function $L$:
+\[
+    R(\theta, S) \equiv \Expect_{\theta} L(\theta, S(X)) \geq
+    \Expect_{\theta} L(\theta, \Expect( S(X) | T(X)))
+\]
 
-UMVUE - uniformly minimimum variance unbiased estimator
+\textbf{Completeness} $T(X)$ is complete if $\Expect g(T(X)) = 0$ 
+implies $g = 0$ almost surely for all $\theta$.
 
-Lehmann - Scheffe Theorem: Suppose $T(X)$ is complete sufficient.
-Then there exists unique unbiased estimator $\Expect h(T(x))$ of $g(\theta) \in R$ with
-smallest variance (MVUE)
+Basu's Theorem - If $T(X)$ complete sufficient statistic and $A(X)$ is 
+ancillary then $A(X)$ and $T(X)$ are independent.
+
+\textbf{Lehmann - Scheffe} Suppose $T(X)$ is complete sufficient. Then
+there exists unique unbiased estimator $\Expect h(T(x))$ of $g(\theta) \in
+R$ with smallest variance (MVUE)
 
 \subsection{Exponential Families}
 One parameter model indexed by $\theta$.
@@ -255,21 +283,10 @@ Canonical form model indexed by $\eta$.
 \[
     q(x, \eta) = h(x) \exp \{ \eta T(x) - A(\eta) \}
 \]
-Then moment generating function
+Then moment generating function for $T(X)$ is
 \[
-    M(t) = \exp \{A(t + \eta) - A(\eta) \}
+    M_{T(X)}(t) = \exp \{A(t + \eta) - A(\eta) \}
 \]
-
-Moment generating functions determine distribution
-\[
-    M_X(t) \equiv \Expect (e^{tX}),
-    \quad M_X'(0) = \Expect(X)
-\]
-For $X_i$ independently distributed:
-\[
-    M_{\sum X_i} (t) = \prod M_{X_i} (t)
-\]
-Use this to find distributions of sums of RV's.
 
 \subsection{Multivariate Normal}
 
