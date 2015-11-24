@@ -238,11 +238,13 @@ $\text{bias } \hat{v} \equiv \Expect (\hat{v}) - v$
     = \Var (\hat{v}) + (\text{bias } \hat{v})^2
 \]
 
+\textbf{Completeness}
+
 UMVUE - uniformly minimimum variance unbiased estimator
 
 Lehmann - Scheffe Theorem: Suppose $T(X)$ is complete sufficient.
 Then there exists unique unbiased estimator $\Expect h(T(x))$ of $g(\theta) \in R$ with
-smallest variance.
+smallest variance (MVUE)
 
 \subsection{Exponential Families}
 One parameter model indexed by $\theta$.
@@ -445,9 +447,19 @@ Covariance of linear transformations
 
 \newpage
 
-\section{Lecture topics}
+\section{Miscellaneous}
 
-\subsection{Applied}
+Integration by parts:
+\[
+    \int uv' = uv - \int u'v
+\]
+
+\section{Course Specific}
+
+\subsection{Applied Lectures}
+
+23 Nov - BIC, AIC derivations, Mallow's cp, stepwise selection algorithms,
+outliers and studentized residuals
 
 18 Nov - F test with orthogonalized X, model selection criteria,
 bootstrap t method in lab
@@ -475,7 +487,10 @@ noncentral $\chi^2$ distributions for ANOVA table SSA, SSB, SSAB
 21 Oct - Tukey's method for pairwise contrasts, Bonferroni's method,
 definition and properties of Kronecker product
 
-\subsection{Math}
+\subsection{Math Lectures}
+
+23 Nov - Fisher information, Cramer Rao inequality, Exponential families
+and properties
 
 18 Nov - Rao-Blackwell theorem, Lehmann-Scheffe theorem, UMVUE examples for
 normal, uniform, Poisson, Fisher information
@@ -502,13 +517,6 @@ products of normal random variables
 21 Oct - Convolution formula, examples with Uniform, Gamma, Poisson,
 marginal and conditional distributions for multivariate normal
 \newpage
-
-\section{Miscellaneous}
-
-Integration by parts:
-\[
-    \int uv' = uv - \int u'v
-\]
 
 \subsection{Problem Solving Strategies}
 
@@ -568,5 +576,18 @@ when testing.
 
     \end{tabular}
 \end{table}
+
+\subsection{Math questions}
+
+\begin{enumerate}
+    \item State and prove the Lehmann Scheffe Theorem.
+\end{enumerate}
+
+\subsection{Applied questions}
+
+\begin{enumerate}
+    \item Derive ridge regression estimates, along with their bias and
+        variances.
+\end{enumerate}
 
 \end{document}
