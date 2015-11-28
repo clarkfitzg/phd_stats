@@ -267,6 +267,15 @@ Also holds for more general convex loss function $L$:
 \textbf{Completeness} $T(X)$ is complete if $\Expect g(T(X)) = 0$ 
 implies $g = 0$ almost surely for all $\theta$.
 
+\textbf{Cramer Rao Inequality} Let $g: \Theta \rightarrow R$. Suppose there
+exists an unbiased estimator $U(X)$, $\Expect U(X) = g(\theta)$. Then
+\[
+    \Var_\theta U(X) \geq 
+    \left( \frac{\partial g(\theta)}{\partial \theta} \right)^T
+    I(\theta)^{-1}
+    \left( \frac{\partial g(\theta)}{\partial \theta} \right)
+\]
+
 Basu's Theorem - If $T(X)$ complete sufficient statistic and $A(X)$ is 
 ancillary then $A(X)$ and $T(X)$ are independent.
 
@@ -466,6 +475,22 @@ Covariance of linear transformations
 
 \section{Miscellaneous}
 
+$
+    A = 
+    [\begin{smallmatrix}
+        a & b \\
+        c & d \\
+    \end{smallmatrix}]
+$
+\[
+    A^{-1} = 
+    \frac{1}{\det (A)}
+    \begin{bmatrix}
+        d & -b \\
+        -c & a \\
+    \end{bmatrix}
+\]
+
 Integration by parts:
 \[
     \int uv' = uv - \int u'v
@@ -474,6 +499,9 @@ Integration by parts:
 \section{Course Specific}
 
 \subsection{Applied Lectures}
+
+25 Nov - Model selection criteria, deleted residuals, forward and backward
+selection in lab
 
 23 Nov - BIC, AIC derivations, Mallow's cp, stepwise selection algorithms,
 outliers and studentized residuals
@@ -505,6 +533,9 @@ noncentral $\chi^2$ distributions for ANOVA table SSA, SSB, SSAB
 definition and properties of Kronecker product
 
 \subsection{Math Lectures}
+
+25 Nov - Exponential families, GLM's, full rank exp families, decision
+theory, Bayes risk
 
 23 Nov - Fisher information, Cramer Rao inequality, Exponential families
 and properties
