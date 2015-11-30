@@ -411,15 +411,31 @@ Alternate forms of linear test, and testing a linear combination if $R\beta
     \frac{(R \hat{\beta} - r)^T (R(X^T X)^{-1} R^T)^{-1} (R \beta - r) / s}
     {\hat{\sigma}}^2 \sim F_{s, n-p}
 \]
-Simultaneous confidence bands for all $f(x)$.
 
-If the model has an intercept then $SSTO = SSR + SSE$.
+\subsection{Model performance}
+
+$SSE = \sum_{i=1}^n (y_i - \hat{y}_i) = \norm{y - \hat{y}}^2
+        = \norm{(I - H)y}^2$
+
+If the model contains the intercept in the column space of $X$  then $SSTO = SSR + SSE$.
+
+$R^2 = 1 - \frac{SSE}{SSTO}$
+
+Adjusted $R^2_a = 1 - \frac{SSE / (n-p)}{SSTO / (n-1)}$
+
+Prediction sum of squares (PRESS) is the same as leave one out cross
+validation (LOOCV). Prediction error on $i$th observation:
 \[
-    \sum (y_i - \bar{y})^2 = \sum (\hat{y_i} = \bar{y})^2 + (yi -
-    \hat{yi})^2
+    y_i - \hat{y}_{i (-i)} = \frac{y_i - \hat{y}_i}{1 - H_{ii}}
 \]
+Works for ridge regression also, letting 
+$H = X(X^T X + \lambda I)^{-1} X^T$.
 
-$R^2$ and adjusted $R^2$
+$AIC = n \log SSE + 2p$
+
+$BIC = n \log SSE + p \log n$
+
+$Cp = \frac{SSE}{MSE} - (n - 2p)$
 
 \subsection{ANOVA}
 
