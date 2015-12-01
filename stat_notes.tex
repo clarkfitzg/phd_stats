@@ -412,7 +412,7 @@ Alternate forms of linear test, and testing a linear combination if $R\beta
     {\hat{\sigma}}^2 \sim F_{s, n-p}
 \]
 
-\subsection{Model performance}
+\subsection{Model selection and diagnostics}
 
 $SSE = \sum_{i=1}^n (y_i - \hat{y}_i) = \norm{y - \hat{y}}^2
         = \norm{(I - H)y}^2$
@@ -423,19 +423,40 @@ $R^2 = 1 - \frac{SSE}{SSTO}$
 
 Adjusted $R^2_a = 1 - \frac{SSE / (n-p)}{SSTO / (n-1)}$
 
+$AIC = n \log SSE + 2p$
+
+$BIC = n \log SSE + p \log n$
+
+$Cp = \frac{SSE}{MSE} - (n - 2p)$
+
+Residuals: $\hat{\epsilon}_i = y_i - \hat{y}_i$
+
+Studentized residuals (\texttt{rstandard} in R): 
+\[
+    \gamma_i =
+    \frac{\hat{\epsilon}_i}{ s \{ \hat{\epsilon}_i \} } = 
+    \frac{\hat{\epsilon}_i}{\hat{\sigma} \sqrt{1 - h_{ii}}}
+\]
+
 Prediction sum of squares (PRESS) is the same as leave one out cross
-validation (LOOCV). Prediction error on $i$th observation:
+validation (LOOCV). Prediction error on $i$th observation is called deleted
+residuals:
 \[
     y_i - \hat{y}_{i (-i)} = \frac{y_i - \hat{y}_i}{1 - H_{ii}}
 \]
 Works for ridge regression also, letting 
 $H = X(X^T X + \lambda I)^{-1} X^T$.
 
-$AIC = n \log SSE + 2p$
+Studentized deleted residuals: 
+\[
+    t_i = \frac{\hat{\epsilon}_i}{\sqrt{MSE_{(-i)} (1 - h_{ii})}} \sim t_{n - p -1}
+\]
 
-$BIC = n \log SSE + p \log n$
+TODO- Don't think this is correct:
 
-$Cp = \frac{SSE}{MSE} - (n - 2p)$
+Where $MSE_{(-i)} = SSE_{(-i)} / (n - 1 - p)$ and
+$SSE_{(-i)} = SSE - \frac{\hat{\epsilon}_i}{1 - h_{ii}}$ can be used to
+calculate without refitting model.
 
 \subsection{ANOVA}
 
