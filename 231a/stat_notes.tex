@@ -92,7 +92,7 @@ $X \sim N(\mu, \Sigma)$, $\Sigma$ positive definite
 \[
     f(x) = \frac{\exp\{ - \frac{1}{2}(x - \mu)^T \Sigma^{-1} (x - \mu) \}}
         {(2\pi)^{\frac{k}{2}} \sqrt{\det(\Sigma)}}
-        = \frac{1}{\sqrt{2 \pi} \sigma} e^{\frac{(x - \mu)^2}{2
+        = \frac{1}{\sqrt{2 \pi} \sigma} e^{-\frac{(x - \mu)^2}{2
         \sigma^2}}
 \]
 \subsection*{Beta}
@@ -283,30 +283,41 @@ $\mathcal{A}$ is the action space.
 Posterior mean minimizes square error loss; median minimizes absolute loss.
 
 \textbf{Risk function} $R: \Theta \times \mathcal{D} \rightarrow
-\mathbb{R}^+$
+\mathbb{R}^+$ expected loss for a particular value of $\theta$
 \[
-    R(\theta, \delta) = \Expect_\theta l(\theta, \delta(X))
+    R(\theta, \delta) = \Expect_\theta l(\theta, \delta(X)) = \int
+    l(\theta, \delta(x)) \cdot p_\theta (x) dx
 \]
-
-\textbf{Bayes risk} For fixed prior $\pi$, $r_\pi : \mathcal{D} \rightarrow
-\mathbb{R}^+$
+Bayes setup:
+\[
+    \pi(\theta | x) = \frac{p_\theta (x) \pi(\theta)}{m(x)}
+\]
+\textbf{Bayes risk} $r_\pi : \mathcal{D} \rightarrow
+\mathbb{R}^+$ expected loss for fixed prior $\pi$
 \[
     r_\pi (\delta) = \Expect_\pi R(\theta, \delta) 
     = \int_\Theta R(\theta, \delta) \pi (d \theta)
+    = \int_\mathcal{X} r_\pi(\delta(x) | x) m(x) dx
 \]
-
 \textbf{Bayes decision rule} If there exists $\delta_\pi \in \mathcal{D}$
 w.r.t prior $\pi$ such that
 \[
     r(\pi, \delta_\pi) = \inf_{\delta \in \mathcal{D}} r(\pi, \delta)
 \]
-
+To find Bayes rule minimize the posterior risk:
+\[
+    \delta_\pi (x) = \min_{a \in \mathcal{A}} r_\pi (a | x)
+\]
 \textbf{Minimax} decision rule $\delta^*$ minimizes the worst case
 scenario, satisfies
 \[
     \sup_{\theta} R(\theta, \delta^*) = \inf_{\delta} \sup_{\theta}
     R(\theta, \delta)
 \]
+If a Bayes rule has constant risk then it's minimax.
+Suppose $\delta^*$ has constant risk: $R(\theta, \delta^*) = c$ for all
+$\theta$. Suppose there exists a sequence of priors $(\pi_k)$ such that
+$r_{\pi_k} (\delta_{\pi_k}) \rightarrow c$. Then $\delta^*$ is minimax.
 
 \newpage
 
@@ -333,7 +344,7 @@ N(0, I)$ and $X$:
 
 Conditional pdf:
 \[
-    f_{x|y}(x, y) \equiv \frac{f_{x, y}(x, y)}{f_y(y)}
+    f_{X|Y}(x, y) \equiv \frac{f_{X, Y}(x, y)}{f_Y(y)}
 \]
 Iterated expectation:
 \[
