@@ -96,6 +96,9 @@ $X \sim N(\mu, \Sigma)$, $\Sigma$ positive definite
         \sigma^2}}
 \]
 \subsection*{Beta}
+    
+$\Expect X = \frac{\alpha}{\alpha + \beta},
+\quad \Var X = \frac{\alpha \beta}{(\alpha + \beta)^2 (\alpha + \beta + 1)}$
 
 $ X \sim \text{Beta}(\alpha, \beta)$
 \[
@@ -108,11 +111,11 @@ using the beta function:
     \frac{\Gamma(\alpha) \Gamma(\beta)}{\Gamma(\alpha+ \beta)} =
     \int_0^1 t^{\alpha -1} (1-t)^{\beta - 1}dt
 \]
-    
-$\Expect X = \frac{\alpha}{\alpha + \beta},
-\quad \Var X = \frac{\alpha \beta}{(\alpha + \beta)^2 (\alpha + \beta + 1)}$
 
 \subsection*{Gamma}
+
+$\Expect X = \frac{\alpha}{\beta},
+\quad \Var X = \frac{\alpha}{\beta^2}$
 
 $X \sim \text{Gamma}(\alpha, \lambda)$
 \[
