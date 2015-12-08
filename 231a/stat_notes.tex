@@ -69,10 +69,9 @@ $X \sim B(n, p)$
     p(k) = \binom{n}{k} p^k (1-p)^{n-k}
     \qquad k = 0, 1, \dots, n
 \]
-mgf: $M_X (t) = (pe^t + 1 - p)^n$
-
 $\Expect X = np, \quad \Var X = np(1-p)$
 
+mgf: $M_X (t) = (pe^t + 1 - p)^n$
 
 \subsection*{Poisson}
 
@@ -81,10 +80,9 @@ $X \sim P(\lambda)$
     p(k) = \frac{e^{-\lambda} \lambda^k}{k!}
     \qquad k = 0, 1, \dots
 \]
-mgf: $M_X (t) = e^{\lambda (e^t -1)}$
-
 $\Expect X = \lambda, \quad \Var X = \lambda$
 
+mgf: $M_X (t) = e^{\lambda (e^t -1)}$
 
 \subsection*{Normal}
 
@@ -95,16 +93,18 @@ $X \sim N(\mu, \Sigma)$, $\Sigma$ positive definite
         = \frac{1}{\sqrt{2 \pi} \sigma} e^{-\frac{(x - \mu)^2}{2
         \sigma^2}}
 \]
+mgf: $M_X (t) = \exp (\mu' t + \frac{1}{2} t' \Sigma t)$
+
 \subsection*{Beta}
     
-$\Expect X = \frac{\alpha}{\alpha + \beta},
-\quad \Var X = \frac{\alpha \beta}{(\alpha + \beta)^2 (\alpha + \beta + 1)}$
-
 $ X \sim \text{Beta}(\alpha, \beta)$
 \[
     f(x) = \frac{x^{\alpha-1}(1 - x)^{\beta-1}}{B(\alpha, \beta)} 
     \qquad 0 \leq x \leq 1
 \]
+$\Expect X = \frac{\alpha}{\alpha + \beta},
+\quad \Var X = \frac{\alpha \beta}{(\alpha + \beta)^2 (\alpha + \beta + 1)}$
+
 using the beta function:
 \[
     B(\alpha, \beta) =
@@ -114,14 +114,14 @@ using the beta function:
 
 \subsection*{Gamma}
 
-$\Expect X = \frac{\alpha}{\beta},
-\quad \Var X = \frac{\alpha}{\beta^2}$
-
 $X \sim \text{Gamma}(\alpha, \lambda)$
 \[
     f(x) = \frac{\lambda^\alpha x^{\alpha-1} e^{-\lambda x}}{\Gamma(\alpha)}
     \qquad x > 0
 \]
+$\Expect X = \frac{\alpha}{\beta},
+\quad \Var X = \frac{\alpha}{\beta^2}$
+
 mgf: $M_X (t) = (1 - \frac{t}{\lambda})^{-\alpha}, t < \lambda$
 
 $X \sim \text{Gamma}(\alpha, \lambda) \iff \lambda X \sim \text{Gamma}(\alpha, 1)$
@@ -169,10 +169,8 @@ Where numerator and denominator are independent $\chi^2$.
 \]
 Where numerator and denominator are independent.
 
-
-
-\newpage
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\vspace{0.2in}
+\hrule
 
 Moment generating functions determine distribution
 \[
@@ -183,7 +181,18 @@ $X_i$ independently distributed $\iff$
 \[
     M_{\sum X_i} (t) = \prod M_{X_i} (t)
 \]
-\subsection*{Inequalities}
+\textbf{Characteristic function}
+\[
+    \phi(t) = \Expect (e^{i t^T X)}
+    = \Expect (\cos (t^T X)) + i \Expect(\sin(t^T X))
+\]
+Order statistics for sorted sample $X_{(1)}, \dots, X_{(n)}$ has pdf:
+\[
+    n! \prod_{i=1}^n f(X_{(i)}) \quad I(X_{(1)} < \dots < X_{(n)})
+\]
+
+\newpage
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 \textbf{Jensen's Inequality} if $S \subset R^k$ convex and closed, $g$ convex on $S$, $P[X
 \in S] = 1$, and $\Expect X$ is finite, then $\Expect X \in S$, $\Expect
@@ -195,12 +204,6 @@ g(X)$ exists, and
 1$ then
 \[
     \Expect |XY| \leq (\Expect |X|^r)^{\frac{1}{r}}(\Expect |X|^s)^{\frac{1}{s}}
-\]
-
-
-Order statistics for sorted sample $X_{(1)}, \dots, X_{(n)}$ has pdf:
-\[
-    n! \prod_{i=1}^n f(X_{(i)}) \quad I(X_{(1)} < \dots < X_{(n)})
 \]
 
 $T(X)$ Sufficient means the distribution of $X | T(X)$ does not depend on
@@ -227,8 +230,6 @@ sufficient and a function of the likelihood $\lambda_x (\theta)$.
     = \Expect_\theta \left[ - \frac{\partial^2}{\partial \theta^2}
     \log L_X (\theta) \right]
 \]
-\subsection*{Bias, Variance}
-
 $\text{bias } \hat{v} \equiv \Expect (\hat{v}) - v$
 \[
     MSE(\hat{v}) \equiv \Expect (\hat{v} - v)^2 
@@ -261,9 +262,10 @@ ancillary then $A(X)$ and $T(X)$ are independent.
 
 \textbf{Lehmann - Scheffe} Suppose $T(X)$ is complete sufficient. Then
 there exists unique unbiased estimator $\Expect h(T(x))$ of $g(\theta) \in
-R$ with smallest variance (MVUE)
+R$ with smallest variance (MVUE). 
 
-\subsection*{Exponential Families}
+\textbf{Exponential Families} $T(x)$ is natural sufficient statistic and is
+complete sufficient.
 \[
     p(x, \theta) = h(x) \exp \{ \eta(\theta)^T T(x) - B(\theta) \}
 \]
@@ -295,13 +297,6 @@ Bayes setup:
 \[
     \pi(\theta | x) = \frac{p_\theta (x) \pi(\theta)}{m(x)}
 \]
-\textbf{Bayes risk} $r_\pi : \mathcal{D} \rightarrow
-\mathbb{R}^+$ expected loss for fixed prior $\pi$
-\[
-    r_\pi (\delta) = \Expect_\pi R(\theta, \delta) 
-    = \int_\Theta R(\theta, \delta) \pi (d \theta)
-    = \int_\mathcal{X} r_\pi(\delta(x) | x) m(x) dx
-\]
 \textbf{Bayes decision rule} If there exists $\delta_\pi \in \mathcal{D}$
 w.r.t prior $\pi$ such that
 \[
@@ -311,6 +306,18 @@ To find Bayes rule minimize the posterior risk:
 \[
     \delta_\pi (x) = \min_{a \in \mathcal{A}} r_\pi (a | x)
 \]
+
+\textbf{Bayes risk} $r_\pi : \mathcal{D} \rightarrow
+\mathbb{R}^+$ expected loss for fixed prior $\pi$
+\[
+    r_\pi (\delta) = \Expect_\pi R(\theta, \delta) 
+    = \int_\Theta R(\theta, \delta) \pi (d \theta)
+    = \int_\mathcal{X} r_\pi(\delta(x) | x) m(x) dx
+\]
+To find Bayes risk: 1) find the Bayes rule 2) compute the risk function 3)
+take the expectation of the risk wrt prior $\pi$.
+
+
 \textbf{Minimax} decision rule $\delta^*$ minimizes the worst case
 scenario, satisfies
 \[
