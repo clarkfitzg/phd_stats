@@ -80,7 +80,8 @@ $X \sim P(\lambda)$
 \]
 $\Expect X = \lambda, \quad \Var X = \lambda$
 
-mgf: $M_X (t) = e^{\lambda (e^t -1)}$
+mgf: $M_X (t) = e^{\lambda (e^t -1)}$ Use recursive relation to compute
+$\Expect(X_i)$.
 
 Gamma is conjugate prior, Fisher info $I(\lambda) = \frac{1}{\lambda}$
 
@@ -142,10 +143,26 @@ $\Gamma(\alpha + 1) = \alpha \Gamma(\alpha)$
 $\Gamma(k) = (k-1)!$ for $k$ positive integer.
 
 \textbf{Exponential}
-Special case: $\text{Exp}(\lambda) \equiv \text{Gamma}(1, \lambda)$
+Special case: $X \sim \text{Exp}(\lambda) \equiv \text{Gamma}(1, \lambda)$
+
+$
+f(x) = \lambda e^{-\lambda x},
+\quad x > 0
+\qquad \Expect X = \frac{1}{\lambda},
+\quad \Var X = \frac{1}{\lambda ^2}
+$
+
+CDF $F(x) = 1 - e^{-\lambda x}$
 
 \textbf{Chi square}
-Special case: $\chi^2_n \equiv \text{Gamma}(\frac{n}{2}, \frac{1}{2})$
+Special case: $X \sim \chi^2_n \equiv \text{Gamma}(\frac{n}{2}, \frac{1}{2})$
+
+$
+f(x) \propto x^{\frac{n}{2} - 1} e^{\frac{-x}{2}},
+\quad x > 0
+\qquad \Expect X = n,
+\quad \Var X = 2n
+$
 
 Let $Z_i$ be iid $N(0, 1)$.
 
