@@ -11,7 +11,7 @@
 \usepackage{parskip}  
 
 % Change margin size
-\usepackage[margin=1in]{geometry}   
+\usepackage[margin=0.5in]{geometry}   
 
 % Graphics Example:  (PDF's make for good plots)
 \usepackage{graphicx}               
@@ -60,77 +60,80 @@
 
 \begin{document}
 
-\section{Distributions}
-
-\subsection{Binomial}
-
-Sum of $n$ bernoulli trials with probability of success $p$.
-
+\textbf{Binomial}
 $X \sim B(n, p)$
 \[
     p(k) = \binom{n}{k} p^k (1-p)^{n-k}
     \qquad k = 0, 1, \dots, n
 \]
+$\Expect X = np, \quad \Var X = np(1-p)$
 
 mgf: $M_X (t) = (pe^t + 1 - p)^n$
 
-$\Expect X = np, \quad \Var X = np(1-p)$
+Beta is conjugate prior, Fisher info $I(p) = \frac{1}{p(1 - p)}$
 
-
-\subsection{Poisson}
-
+\textbf{Poisson}
 $X \sim P(\lambda)$
 \[
     p(k) = \frac{e^{-\lambda} \lambda^k}{k!}
     \qquad k = 0, 1, \dots
 \]
-
-mgf: $M_X (t) = e^{\lambda (e^t -1)}$
-
 $\Expect X = \lambda, \quad \Var X = \lambda$
 
+mgf: $M_X (t) = e^{\lambda (e^t -1)}$ Use recursive relation to compute
+$\Expect(X_i)$.
 
-\subsection{Multivariate Normal}
+Gamma is conjugate prior, Fisher info $I(\lambda) = \frac{1}{\lambda}$
 
+\textbf{Normal}
 $X \sim N(\mu, \Sigma)$, $\Sigma$ positive definite
 \[
     f(x) = \frac{\exp\{ - \frac{1}{2}(x - \mu)^T \Sigma^{-1} (x - \mu) \}}
         {(2\pi)^{\frac{k}{2}} \sqrt{\det(\Sigma)}}
+        = \frac{1}{\sqrt{2 \pi} \sigma} e^{-\frac{(x - \mu)^2}{2
+        \sigma^2}}
 \]
+mgf: $M_X (t) = \exp (\mu' t + \frac{1}{2} t' \Sigma t)$
 
-\subsection{Beta}
+Normal is conj. prior, Fisher info $I(\mu, \sigma^2) = 
+[\begin{smallmatrix}
+        1 / \sigma^2 & 0 \\
+        0 & 1 / 2\sigma^4 \\
+\end{smallmatrix}]$
 
+\textbf{Beta}
 $ X \sim \text{Beta}(\alpha, \beta)$
 \[
     f(x) = \frac{x^{\alpha-1}(1 - x)^{\beta-1}}{B(\alpha, \beta)} 
     \qquad 0 \leq x \leq 1
 \]
+$\Expect X = \frac{\alpha}{\alpha + \beta},
+\quad \Var X = \frac{\alpha \beta}{(\alpha + \beta)^2 (\alpha + \beta + 1)}$
+
 using the beta function:
 \[
     B(\alpha, \beta) =
     \frac{\Gamma(\alpha) \Gamma(\beta)}{\Gamma(\alpha+ \beta)} =
     \int_0^1 t^{\alpha -1} (1-t)^{\beta - 1}dt
 \]
-    
-$\Expect X = \frac{\alpha}{\alpha + \beta},
-\quad \Var X = \frac{\alpha \beta}{(\alpha + \beta)^2 (\alpha + \beta + 1)}$
 
-\subsection{Gamma}
-
-$X \sim \text{Gamma}(\alpha, \lambda)$
+\textbf{Gamma}
+$X \sim \text{Gamma}(\alpha, \beta)$
 \[
-    f(x) = \frac{\lambda^\alpha x^{\alpha-1} e^{-\lambda x}}{\Gamma(\alpha)}
+    f(x) = \frac{\beta^\alpha x^{\alpha-1} e^{-\beta x}}{\Gamma(\alpha)}
     \qquad x > 0
 \]
-mgf: $M_X (t) = (1 - \frac{t}{\lambda})^{-\alpha}, t < \lambda$
+$\Expect X = \frac{\alpha}{\beta},
+\quad \Var X = \frac{\alpha}{\beta^2}$
 
-$X \sim \text{Gamma}(\alpha, \lambda) \iff \lambda X \sim \text{Gamma}(\alpha, 1)$
+mgf: $M_X (t) = (1 - \frac{t}{\beta})^{-\alpha}, t < \beta$
 
-$X_i \iid \text{Gamma}(\alpha_i, \lambda)$, then
+$X \sim \text{Gamma}(\alpha, \beta) \iff \beta X \sim \text{Gamma}(\alpha, 1)$
+
+$X_i \iid \text{Gamma}(\alpha_i, \beta)$, then
 \[
-    \sum X_i \sim \text{Gamma}(\sum \alpha_i, \lambda)
+    \sum X_i \sim \text{Gamma}(\sum \alpha_i, \beta)
 \]
-
 Gamma function: $\Gamma(\alpha) = \int_0^\infty t^{\alpha-1} e^{-t} dt$.
 
 $\Gamma(\frac{1}{2}) = \sqrt{\pi}$.
@@ -139,13 +142,27 @@ $\Gamma(\alpha + 1) = \alpha \Gamma(\alpha)$
 
 $\Gamma(k) = (k-1)!$ for $k$ positive integer.
 
-\subsection{Exponential}
+\textbf{Exponential}
+Special case: $X \sim \text{Exp}(\lambda) \equiv \text{Gamma}(1, \lambda)$
 
-Special case: $\text{Exp}(\lambda) \equiv \text{Gamma}(1, \lambda)$
+$
+f(x) = \lambda e^{-\lambda x},
+\quad x > 0
+\qquad \Expect X = \frac{1}{\lambda},
+\quad \Var X = \frac{1}{\lambda ^2}
+$
 
-\subsection{Chi square}
+CDF $F(x) = 1 - e^{-\lambda x}$
 
-Special case: $\chi^2_n \equiv \text{Gamma}(\frac{n}{2}, \frac{1}{2})$
+\textbf{Chi square}
+Special case: $X \sim \chi^2_n \equiv \text{Gamma}(\frac{n}{2}, \frac{1}{2})$
+
+$
+f(x) \propto x^{\frac{n}{2} - 1} e^{\frac{-x}{2}},
+\quad x > 0
+\qquad \Expect X = n,
+\quad \Var X = 2n
+$
 
 Let $Z_i$ be iid $N(0, 1)$.
 
@@ -156,47 +173,56 @@ Noncentral $\chi^2$. Let $Y \sim N(\mu, I)$ be an $n$ vector. Then
     \norm{Y}^2 \sim \chi^2_n(\norm{\mu}^2)
 \]
 
-\subsection{F}
+\textbf{F}
 \[
     F(m, n) \equiv \frac{\frac{\chi^2_m}{m}}
         {\frac{\chi^2_n}{n}}
 \]
 Where numerator and denominator are independent $\chi^2$.
 
-\subsection{T}
+\textbf{T}
 \[
     t(n) = \frac{N(0, 1)}
     {\sqrt{\frac{\chi^2_n}{n}}}
 \]
 Where numerator and denominator are independent.
 
+\vspace{0.2in}
+\hrule
 
-\subsection{Studentized range distribution}
-
-Let $z_1, \dots z_K$ be i.i.d $N(0, 1)$ and
-$X$ be an independent $\chi^2_\nu$. Then
+\textbf{Transformations} If $g$ 1:1 with continuous derivatives and nonzero
+Jacobian, and $Y = g(X)$, then the density
 \[
-    \frac{\max_i z_i - \min_i z_i}{\sqrt(X / \nu)} \sim q_{K, \nu}
+    f_Y(y) = f_X(g^{-1}(y)) |J_{g^{-1}}(y)|
 \]
-
-
-
-\newpage
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\section{Math}
+For affine transformation $Y = AX + c$ then 
+\[
+    f_Y(y) = f_X(A^{-1}(y - c)) |\det A|^{-1}
+\]
 
 Moment generating functions determine distribution
 \[
     M_X(t) \equiv \Expect (e^{tX}),
     \quad M_X'(0) = \Expect(X)
 \]
-For $X_i$ independently distributed:
+$X_i$ independently distributed $\iff$
 \[
     M_{\sum X_i} (t) = \prod M_{X_i} (t)
 \]
-Use this to find distributions of sums of RV's.
+\textbf{Characteristic function}
+\[
+    \phi(t) = \Expect (e^{i t^T X)}
+    = \Expect (\cos (t^T X)) + i \Expect(\sin(t^T X))
+\]
+Order statistics for sorted sample $X_{(1)}, \dots, X_{(n)}$ has pdf:
+\[
+    n! \prod_{i=1}^n f(X_{(i)}) \quad I(X_{(1)} < \dots < X_{(n)})
+\]
 
-\subsection{Inequalities}
+\newpage
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\section*{TODO - add measure theory}
 
 \textbf{Jensen's Inequality} if $S \subset R^k$ convex and closed, $g$ convex on $S$, $P[X
 \in S] = 1$, and $\Expect X$ is finite, then $\Expect X \in S$, $\Expect
@@ -204,17 +230,10 @@ g(X)$ exists, and
 \[
     \Expect g(X) \geq g(\Expect X)
 \]
-
 \textbf{Holder's Inequality} if $r, s > 1$ and $\frac{1}{r} + \frac{1}{s} =
 1$ then
 \[
     \Expect |XY| \leq (\Expect |X|^r)^{\frac{1}{r}}(\Expect |X|^s)^{\frac{1}{s}}
-\]
-
-
-Order statistics for sorted sample $X_{(1)}, \dots, X_{(n)}$ has pdf:
-\[
-    n! \prod_{i=1}^n f(X_{(i)}) \quad I(X_{(1)} < \dots < X_{(n)})
 \]
 
 $T(X)$ Sufficient means the distribution of $X | T(X)$ does not depend on
@@ -224,7 +243,6 @@ Factorization theorem: $T(x)$ is sufficient $\iff$
 \[
     f_{\theta}(x) = h(x) g(\theta, T(x))
 \]
-
 $L_x (\theta) = p_\theta (x) = p(x, \theta)$ likelihood is function of
 $\theta$, density is function of $x$.
 
@@ -242,16 +260,11 @@ sufficient and a function of the likelihood $\lambda_x (\theta)$.
     = \Expect_\theta \left[ - \frac{\partial^2}{\partial \theta^2}
     \log L_X (\theta) \right]
 \]
-
-\subsection{Bias, Variance}
-
 $\text{bias } \hat{v} \equiv \Expect (\hat{v}) - v$
-
 \[
     MSE(\hat{v}) \equiv \Expect (\hat{v} - v)^2 
     = \Var (\hat{v}) + (\text{bias } \hat{v})^2
 \]
-
 \textbf{Rao-Blackwell} Let $S(X)$ be an unbiased point estimator for
 $g(\theta)$. Conditioning on a sufficient statistic $T(X)$ reduces
 variance.
@@ -263,7 +276,6 @@ Also holds for more general convex loss function $L$:
     R(\theta, S) \equiv \Expect_{\theta} L(\theta, S(X)) \geq
     \Expect_{\theta} L(\theta, \Expect( S(X) | T(X)))
 \]
-
 \textbf{Completeness} $T(X)$ is complete if $\Expect g(T(X)) = 0$ 
 implies $g = 0$ almost surely for all $\theta$.
 
@@ -275,15 +287,15 @@ exists an unbiased estimator $U(X)$, $\Expect U(X) = g(\theta)$. Then
     I(\theta)^{-1}
     \left( \frac{\partial g(\theta)}{\partial \theta} \right)
 \]
-
 Basu's Theorem - If $T(X)$ complete sufficient statistic and $A(X)$ is 
 ancillary then $A(X)$ and $T(X)$ are independent.
 
 \textbf{Lehmann - Scheffe} Suppose $T(X)$ is complete sufficient. Then
 there exists unique unbiased estimator $\Expect h(T(x))$ of $g(\theta) \in
-R$ with smallest variance (MVUE)
+R$ with smallest variance (MVUE). 
 
-\subsection{Exponential Families}
+\textbf{Exponential Families} $T(x)$ is natural sufficient statistic and is
+complete sufficient if the $k$ parameter exponential family is full rank.
 \[
     p(x, \theta) = h(x) \exp \{ \eta(\theta)^T T(x) - B(\theta) \}
 \]
@@ -291,12 +303,78 @@ Canonical form model indexed by $\eta$.
 \[
     q(x, \eta) = h(x) \exp \{ \eta^T T(x) - A(\eta) \}
 \]
+\[
+    \dot{A} (\eta) = \Expect_\eta (T(X)) \quad
+    \ddot{A} (\eta) = I(\eta) = \Var_\eta (T(X))
+\]
 Then moment generating function for $T(X)$ is
 \[
     M_{T(X)}(t) = \exp \{A(t + \eta) - A(\eta) \}
 \]
+Equivalent statements useful for GLM's such as $Y \sim N(X \beta,
+\sigma_0^2 I)$, where $Z$ is $n \times p$:
 
-\subsection{Multivariate Normal}
+1. $I(\beta) = \frac{1}{\sigma_0^2} X^T X$ positive definite
+2. rank$(X) = p$
+3. model is identifiable. More generally another equivalent statement is
+$\Var (T(X)) = \ddot{A} (\eta)$ is positive definite.
+
+\subsection*{Decision Theory}
+
+\textbf{Decision rule} $\delta: \mathcal{X} \rightarrow \mathcal{A}$, where 
+$\delta \in \mathcal{D}$, the space of possible decision rules and
+$\mathcal{A}$ is the action space.
+
+\textbf{Loss function} $l: \Theta \times \mathcal{A} \rightarrow \mathbb{R}^+$
+Posterior mean minimizes square error loss; median minimizes absolute loss.
+
+\textbf{Risk function} $R: \Theta \times \mathcal{D} \rightarrow
+\mathbb{R}^+$ expected loss for a particular value of $\theta$
+\[
+    R(\theta, \delta) = \Expect_\theta l(\theta, \delta(X)) = \int
+    l(\theta, \delta(x)) \cdot p_\theta (x) dx
+\]
+Bayes setup:
+\[
+    \pi(\theta | x) = \frac{p_\theta (x) \pi(\theta)}{m(x)}
+\]
+\textbf{Bayes decision rule} If there exists $\delta_\pi \in \mathcal{D}$
+w.r.t prior $\pi$ such that
+\[
+    r(\pi, \delta_\pi) = \inf_{\delta \in \mathcal{D}} r(\pi, \delta)
+\]
+To find Bayes rule minimize the posterior risk:
+\[
+    \delta_\pi (x) = \min_{a \in \mathcal{A}} r_\pi (a | x)
+\]
+
+\textbf{Bayes risk} $r_\pi : \mathcal{D} \rightarrow
+\mathbb{R}^+$ expected loss for fixed prior $\pi$
+\[
+    r_\pi (\delta) = \Expect_\pi R(\theta, \delta) 
+    = \int_\Theta R(\theta, \delta) \pi (d \theta)
+    = \int_\mathcal{X} r_\pi(\delta(x) | x) m(x) dx
+\]
+To find Bayes risk: 1) find the Bayes rule 2) compute the risk function 3)
+take the expectation of the risk wrt prior $\pi$.
+
+
+\textbf{Minimax} decision rule $\delta^*$ minimizes the worst case
+scenario, satisfies
+\[
+    \sup_{\theta} R(\theta, \delta^*) = \inf_{\delta} \sup_{\theta}
+    R(\theta, \delta)
+\]
+To show $\delta^*$ is minimax, first check for constant risk $R(\theta,
+\delta^* = c$ for all $\theta$, then find a
+prior $\pi$ such that $\delta^*$ is the Bayes rule. This $\pi$ is least
+favorable. More generally can find
+a sequence of priors $(\pi_k)$ such that the Bayes risk $r_{\pi_k}
+(\delta_{\pi_k}) \rightarrow c$.
+
+\newpage
+
+\subsection*{Multivariate Normal}
 
 Stein's formula: $X \sim N(\mu, \sigma)$
 \[
@@ -309,27 +387,47 @@ then
 \[
     AX \sim N(A \mu, A \Sigma A^t)
 \]
-For $\Sigma$ full rank it's possible to transform between $z \sim
+For $\Sigma$ full rank it's possible to transform between $Z \sim
 N(0, I)$ and $X$:
 \[
-    X = \Sigma^{1/2} z + \mu \qquad z = \Sigma^{-1/2} (X - \mu)
+    X = \Sigma^{1/2} Z + \mu \qquad Z = \Sigma^{-1/2} (X - \mu)
+\]
+In block matrix form:
+\[
+    X =
+    \begin{bmatrix}
+        X_1 \\
+        X_2 \\
+    \end{bmatrix}
+    \sim N \left(
+    \begin{bmatrix}
+        \mu_1 \\
+        \mu_2 \\
+    \end{bmatrix}
+    ,
+    \begin{bmatrix}
+        \Sigma_{11} & \Sigma_{12} \\
+        \Sigma_{21} & \Sigma_{22} \\
+    \end{bmatrix}
+\right)
+\]
+Assuming $\Sigma_{11}$ is positive definite then the conditional
+distribution
+\[
+    X_2 | X_1 \sim N(\mu_2 + \Sigma_{21} \Sigma_{11}^{-1} (X_1 - \mu_1),
+    \Sigma_{22} - \Sigma_{21} \Sigma_{11}^{-1} \Sigma_{12})
 \]
 
-Conditional distribution:
-
-
-\subsection{Conditional Distributions}
+\subsection*{Conditional Distributions}
 
 Conditional pdf:
 \[
-    f_{x|y}(x, y) \equiv \frac{f_{x, y}(x, y)}{f_y(y)}
+    f_{X|Y}(x, y) \equiv \frac{f_{X, Y}(x, y)}{f_Y(y)}
 \]
-
 Iterated expectation:
 \[
     E(Y) = E(E(Y | X))
 \]
-
 Conditional variance formula:
 \[
     \Var(Y) = \Var(E(Y | X)) + E(\Var(Y | X))
@@ -337,7 +435,54 @@ Conditional variance formula:
 
 \newpage
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\section{Applied}
+
+\subsection*{General Techniques}
+
+Singular Value Decompostion (SVD) Any matrix $X$ can be written
+\[
+    X = UDV^T
+\]
+with $U, V$ orthogonal, and $D$ diagonal.
+
+Moore Penrose Psuedoinverse $A^+$ exists uniquely for every matrix $A$.
+
+Projection matrix $P$ are symmetric and idempotent. They have eigenvalues
+either 0 or 1.
+\[
+    P = P^T \qquad P^2 = P
+\]
+
+Covariance of linear transformations
+\[
+    Cov(Ay, Bx) = A Cov(y, x) B^T
+\]
+Invert $2 \times 2$ matrix:
+$
+    A = 
+    [\begin{smallmatrix}
+        a & b \\
+        c & d \\
+    \end{smallmatrix}]
+$
+\[
+    A^{-1} = 
+    \frac{1}{\det (A)}
+    \begin{bmatrix}
+        d & -b \\
+        -c & a \\
+    \end{bmatrix}
+\]
+
+Sum identities:
+\[
+    \sum_{k=0}^{\infty} p^k = \frac{p}{1 - p} \qquad 
+    \sum_{k=0}^{\infty} k p^k = \frac{p}{(1 - p)^2} \qquad |p| < 1
+\]
+
+Integration by parts:
+\[
+    \int uv' = uv - \int u'v
+\]
 
 Matrix / Vector differentiation
 
@@ -345,7 +490,11 @@ $\frac{\partial A^T \beta}{\partial \beta} = A$,
 $\frac{\partial \beta^T A \beta}{\partial \beta} = (A + A^t) \beta =
 2A\beta$ for $A$ symmetric.
 
-\subsection{Linear Models}
+
+\newpage
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\subsection*{Linear Models}
 
 Least Squares Principle
 \[
@@ -365,7 +514,7 @@ Normal Equations - Any $b$ satistfying this solves the least squares
 Gauss Markov Theorem - $\hat{\beta}$ is Best Linear Unbiased
 Estimator (BLUE) of $\beta$.
 \[
-    \hat{\beta} = (X^T X)^{-1} X^T y \sim N(\beta, \sigma (X^T X)^{-1})
+    \hat{\beta} = (X^T X)^{-1} X^T y \sim N(\beta, \sigma^2 (X^T X)^{-1})
 \]
 
 Estimating the variance: $\frac{\norm{y - X \hat{\beta}}^2}{\sigma^2} \sim
@@ -411,7 +560,7 @@ Alternate forms of linear test, and testing a linear combination if $R\beta
     {\hat{\sigma}}^2 \sim F_{s, n-p}
 \]
 
-\subsection{Model selection and diagnostics}
+\subsection*{Model selection and diagnostics}
 
 $SSE = \sum_{i=1}^n (y_i - \hat{y}_i) = \norm{y - \hat{y}}^2
         = \norm{(I - H)y}^2$
@@ -454,7 +603,7 @@ Where $MSE_{(-i)} = SSE_{(-i)} / (n - 1 - p)$ and
 $SSE_{(-i)} = SSE - \frac{\hat{\epsilon}_i}{1 - h_{ii}}$ can be used to
 calculate without refitting model.
 
-\subsection{ANOVA}
+\subsection*{ANOVA}
 
 Three principles of experimental design: 1) Replication 2) Randomization 3)
 Blocking
@@ -482,56 +631,17 @@ Bonferroni's is for a limited number of pre specified contrasts.
     \min_\beta ||Y - X\beta||^2 + \lambda ||\beta||^2
 \]
 
-\subsection{General Techniques}
+\newpage
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
-Singular Value Decompostion (SVD) Any matrix $X$ can be written
-\[
-    X = UDV^T
-\]
-with $U, V$ orthogonal, and $D$ diagonal.
+\subsection*{Applied Lectures - 232B}
 
-Moore Penrose Psuedoinverse $A^+$ exists uniquely for every matrix $A$.
-
-Projection matrix $P$ are symmetric and idempotent. They have eigenvalues
-either 0 or 1.
-\[
-    P = P^T \qquad P^2 = P
-\]
-
-Covariance of linear transformations
-\[
-    Cov(Ay, Bx) = A Cov(y, x) B^T
-\]
-
+\subsection*{Math Lectures - 231B}
 
 \newpage
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
-\section{Miscellaneous}
-
-$
-    A = 
-    [\begin{smallmatrix}
-        a & b \\
-        c & d \\
-    \end{smallmatrix}]
-$
-\[
-    A^{-1} = 
-    \frac{1}{\det (A)}
-    \begin{bmatrix}
-        d & -b \\
-        -c & a \\
-    \end{bmatrix}
-\]
-
-Integration by parts:
-\[
-    \int uv' = uv - \int u'v
-\]
-
-\section{Course Specific}
-
-\subsection{Applied Lectures}
+\subsection*{Applied Lectures - 232A}
 
 30 Nov - Outliers in x and y, leverage, DFFITS, cook's distance, influence
 plot, add variable plot, robust regression
@@ -568,7 +678,10 @@ noncentral $\chi^2$ distributions for ANOVA table SSA, SSB, SSAB
 21 Oct - Tukey's method for pairwise contrasts, Bonferroni's method,
 definition and properties of Kronecker product
 
-\subsection{Math Lectures}
+\newpage
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\subsection*{Math Lectures - 231A}
 
 30 Nov - Bayesian inference, risk, decision rules, conjugate families,
 Binomial, normal examples
@@ -605,7 +718,7 @@ products of normal random variables
 marginal and conditional distributions for multivariate normal
 \newpage
 
-\subsection{Problem Solving Strategies}
+\subsection*{Problem Solving Strategies}
 
 \textbf{Read the whole question}
 
@@ -615,7 +728,7 @@ parts occasionaly provide insight for earlier parts.
 
 \textbf{First principles}
 
-When in doubt, work from definitions
+When in doubt, work from definitions.
 
 \textbf{Look for Distributions} 
 
@@ -663,18 +776,5 @@ when testing.
 
     \end{tabular}
 \end{table}
-
-\subsection{Math questions}
-
-\begin{enumerate}
-    \item State and prove the Lehmann Scheffe Theorem.
-\end{enumerate}
-
-\subsection{Applied questions}
-
-\begin{enumerate}
-    \item Derive ridge regression estimates, along with their bias and
-        variances.
-\end{enumerate}
 
 \end{document}

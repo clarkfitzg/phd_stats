@@ -190,6 +190,16 @@ Where numerator and denominator are independent.
 \vspace{0.2in}
 \hrule
 
+\textbf{Transformations} If $g$ 1:1 with continuous derivatives and nonzero
+Jacobian, and $Y = g(X)$, then the density
+\[
+    f_Y(y) = f_X(g^{-1}(y)) |J_{g^{-1}}(y)|
+\]
+For affine transformation $Y = AX + c$ then 
+\[
+    f_Y(y) = f_X(A^{-1}(y - c)) |\det A|^{-1}
+\]
+
 Moment generating functions determine distribution
 \[
     M_X(t) \equiv \Expect (e^{tX}),
