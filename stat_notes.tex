@@ -560,7 +560,15 @@ Alternate forms of linear test, and testing a linear combination if $R\beta
     {\hat{\sigma}}^2 \sim F_{s, n-p}
 \]
 
+Simultaneous confidence bands for $\beta$.
+
 \subsection*{Model selection and diagnostics}
+
+$SSTO = \sum_{i=1}^n (y_i - \bar{y}) = \norm{y - \bar{y} 1_n }^2
+        = \norm{(I - J)y}^2$
+
+$SSR = \sum_{i=1}^n (\hat{y}_i - \bar{y}) = \norm{\hat{y} - \bar{y} 1_n}^2
+    = \norm{(H - P)y}^2$
 
 $SSE = \sum_{i=1}^n (y_i - \hat{y}_i) = \norm{y - \hat{y}}^2
         = \norm{(I - H)y}^2$
@@ -636,7 +644,11 @@ Bonferroni's is for a limited number of pre specified contrasts.
 
 \subsection*{Applied Lectures - 232B}
 
+4 Jan - Matrix form for linear mixed model, assumptions
+
 \subsection*{Math Lectures - 231B}
+
+4 Jan - Maximum likelihood, determining MLE
 
 \newpage
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
