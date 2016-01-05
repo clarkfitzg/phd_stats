@@ -422,7 +422,7 @@ distribution
 
 Conditional pdf:
 \[
-    f_{X|Y}(x, y) \equiv \frac{f_{X, Y}(x, y)}{f_Y(y)}
+    f_{X|Y}(x | y) \equiv \frac{f_{X, Y}(x, y)}{f_Y(y)}
 \]
 Iterated expectation:
 \[
@@ -538,6 +538,15 @@ $1 - \alpha$ Confidence intervals for new observation $Y_h$ at $x_h$ and $E[Y_h]
     y_h \approx \hat{y_h} \pm t(n-p, 1 - \frac{\alpha}{2}) \hat{\sigma}
         \sqrt{1 + x_h^T (X^T X)^{-1} x_h}
 \]
+Simultaneous confidence interval for $\Expect (y_h)$:
+\[
+    \hat{y}_h \pm \sqrt{p F_{p, n - p, 1 - \alpha}} se\{ \hat{y}_h \}
+\]
+\[
+    \frac{(\hat{\beta} - \beta)^T X^T X (\hat{\beta} - \beta) /
+    p}{\hat{\sigma}^2}
+    \sim F_{p, n - p}
+\]
 
 General linear tests. Partition $\beta = (\beta_1, \beta_2)$ where $\beta_1$
 is an $r$ vector and $\beta_2$ is $p - r$. Null hypothesis $H_0: \beta_2 =
@@ -554,13 +563,12 @@ Under $H_0$:
 \]
 
 Alternate forms of linear test, and testing a linear combination if $R\beta
-= r$.
+= r$, for $R$ full rank $s \times p$ matrix.
 \[
     \frac{(R \hat{\beta} - r)^T (R(X^T X)^{-1} R^T)^{-1} (R \beta - r) / s}
-    {\hat{\sigma}}^2 \sim F_{s, n-p}
+    {\hat{\sigma}^2} \sim F_{s, n-p}
 \]
 
-Simultaneous confidence bands for $\beta$.
 
 \subsection*{Model selection and diagnostics}
 
