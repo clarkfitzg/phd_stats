@@ -490,6 +490,8 @@ $\frac{\partial A^T \beta}{\partial \beta} = A$,
 $\frac{\partial \beta^T A \beta}{\partial \beta} = (A + A^t) \beta =
 2A\beta$ for $A$ symmetric.
 
+$\frac{\partial}{\partial \theta_i} \log (|A|) =
+tr( A^{-1} \frac{\partial A}{\partial \theta_i}$)
 
 \newpage
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -538,7 +540,7 @@ $1 - \alpha$ Confidence intervals for new observation $Y_h$ at $x_h$ and $E[Y_h]
     y_h \approx \hat{y_h} \pm t(n-p, 1 - \frac{\alpha}{2}) \hat{\sigma}
         \sqrt{1 + x_h^T (X^T X)^{-1} x_h}
 \]
-Simultaneous confidence interval for $\Expect (y_h)$:
+Simultaneous (Working-Hotelling) confidence interval for $\Expect (y_h)$:
 \[
     \hat{y}_h \pm \sqrt{p F_{p, n - p, 1 - \alpha}} se\{ \hat{y}_h \}
 \]
@@ -650,13 +652,35 @@ Bonferroni's is for a limited number of pre specified contrasts.
 \newpage
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
+\textbf{Linear mixed models}
+\[
+    y = X \beta + Z \alpha + \epsilon
+\]
+Standard assumptions:
+
+$\Expect ( \alpha) = 0$, $\Expect ( \epsilon) = 0$,
+$\Cov(\epsilon, \alpha) = 0$
+
+$\alpha, \epsilon$ are jointly normal.
+
+\newpage
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
 \subsection*{Applied Lectures - 232B}
 
 4 Jan - Matrix form for linear mixed model, assumptions
 
+6 Jan - 
+
 \subsection*{Math Lectures - 231B}
 
 4 Jan - Maximum likelihood, determining MLE
+
+6 Jan - Normal examples MLE, constraints, MLE of pdf $f$ decreasing on $[0,
+    \infty)$.
+
+11 Jan - MLE maximizing $\Expect l_X (\theta_0)$, KL divergence and
+properties, M estimation
 
 \newpage
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
