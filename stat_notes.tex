@@ -661,11 +661,13 @@ Standard assumptions:
 $\Expect ( \alpha) = 0$, $\Expect ( \epsilon) = 0$,
 $\Cov(\epsilon, \alpha) = 0$
 
-$\alpha, \epsilon$ are jointly normal.
+$\alpha \sim N(0, G), \epsilon \sim N(0, R)$ are jointly normal.
+
+Marginal model $y ~ N(X \beta, V)$ where $V = R + ZGZ'$.
 
 The idea of REML is to first estimate the random components of the model.
-This is done through a transformation of the data so that the model with
-the transformed data contains only the random components.
+This is done through a transformation of the data to create a new model
+containing only the random components, and no fixed components.
 
 \newpage
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -682,6 +684,15 @@ likelihood estimation, REML
 13 Jan - Asymptotic covariance matrix of fixed effects $\hat{\beta}$,
 computing examples
 
+18 Jan - Holiday
+
+20 Jan - Mixed model prediction, BP, BLUE, BLUP, example algebra in
+discussion
+
+22 Jan - Empirical BLUP, Fay Herriot model, jackknife
+
+27 Jan - EBLUP for random effects, intro to GLM's
+
 \subsection*{Math Lectures - 231B}
 
 4 Jan - Maximum likelihood, determining MLE
@@ -695,6 +706,17 @@ properties, M estimation
 13 Jan - least squares and mean absolute deviation (MAD) as examples of m
 estimators, existence and uniqueness theorems for optimization, review of
 exponential families
+
+18 Jan - Holiday
+
+20 Jan - Existence and uniqueness of MLE for canonical and curved
+exponential families, review convexity
+
+25 Jan - Long proof of existence and uniqueness of MLE
+
+27 Jan - Z estimation aka estimating equation estimation, method of
+moments, gamma example, plug in principle
+
 
 \newpage
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
