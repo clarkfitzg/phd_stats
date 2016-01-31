@@ -663,11 +663,29 @@ $\Cov(\epsilon, \alpha) = 0$
 
 $\alpha \sim N(0, G), \epsilon \sim N(0, R)$ are jointly normal.
 
-Marginal model $y ~ N(X \beta, V)$ where $V = R + ZGZ'$.
+Marginal model $y \sim N(X \beta, V)$ where $V = R + ZGZ'$.
 
-The idea of REML is to first estimate the random components of the model.
+The idea of reduced maximum likelihood (REML) is to first estimate the random components of the model.
 This is done through a transformation of the data to create a new model
 containing only the random components, and no fixed components.
+
+Let $\xi = b' \beta + a' \alpha$ be a mixed effect. These are what we're
+interested in estimating. We call them predictions rather than estimations
+because we're predicting a random component.
+
+BLUE - Best linear unbiased estimator, 
+$\tilde{\beta} = (X' V^{-1} X)^{-1} X' V^{-1} y$. This is the MLE of
+$\beta$.
+
+BP - Best predictor, $\Expect (\xi | y) = b' \beta + a' G Z' V^{-1} (y - X
+\beta)$ a theoretical ideal that's
+usually difficult or impossible to derive.
+
+BLUP - Best linear predictor, which plugs in $\tilde{\beta}$ into BP.
+
+EBLUP - Empirical best linear predictor, plugs in $\hat{\theta}$. This is
+typically the one we compute and use.
+
 
 \newpage
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
