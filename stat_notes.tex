@@ -373,9 +373,32 @@ a sequence of priors $(\pi_k)$ such that the Bayes risk $r_{\pi_k}
 (\delta_{\pi_k}) \rightarrow c$.
 
 \newpage
+\subsection*{Asymptotics}
 
+\textbf{Almost Sure convergence}
+\[
+    X_n \xrightarrow{a.s.} X \quad \text{means} \quad P(X_n \rightarrow X)
+    = 1
+\]
+Theorem: $\iff P(\sup_{m \geq n} |X_m - X| > \epsilon) \rightarrow 0
+\quad \forall \epsilon > 0$.
+
+\textbf{Generalized Chebychev Inequality} Let $X$ be a r.v. and $g$ be a
+nonnegative function increasing on the range of $X$. Then
+\[
+    P(X \geq a) \leq \frac{\Expect g(X)}{g(a)}
+\]
+
+\textbf{Borel Cantelli Lemma}
+
+\newpage
 \subsection*{Multivariate Normal}
 
+log likelihood for $k$ vector $x \sim N(\mu, \Sigma)$
+\[
+    l_x = -\frac{k}{2} \log 2 \pi - \frac{1}{2}
+    \{ \log \det \Sigma + (x - \mu)^T \Sigma^{-1} (x - \mu) \}
+\]
 Stein's formula: $X \sim N(\mu, \sigma)$
 \[
     \Expect (g(X) (X - \mu)) = \sigma^2 \Expect(g'(X))
