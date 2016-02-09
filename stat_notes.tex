@@ -383,13 +383,28 @@ a sequence of priors $(\pi_k)$ such that the Bayes risk $r_{\pi_k}
 Theorem: $\iff P(\sup_{m \geq n} |X_m - X| > \epsilon) \rightarrow 0
 \quad \forall \epsilon > 0$.
 
-\textbf{Generalized Chebychev Inequality} Let $X$ be a r.v. and $g$ be a
+\textbf{Convergence in Probability}
+\[
+    X_n \xrightarrow{p} X
+\]
+means that $P( |X_n - X| > \epsilon ) \rightarrow 0$ for all $\epsilon > 0$.
+
+\textbf{Generalized Chebychev Inequality}
+Let $X$ be a r.v. and $g$ be a
 nonnegative function increasing on the range of $X$. Then
 \[
     P(X \geq a) \leq \frac{\Expect g(X)}{g(a)}
 \]
 
 \textbf{Borel Cantelli Lemma}
+
+\textbf{Hoeffding Inequality}
+Let $X_1, \dots, X_n$ be independent (not necessarily iid) with $a_i \leq
+X_i \leq b_i$ and $\Expect X_i = 0$. Then 
+\[
+    P \left( \sum_{i=1}^n X_i \geq \eta \right) \leq 
+    \exp \left\{ -\frac{2\eta^2}{\sum_{i=1}^n (b_i - a_i)^2} \right\}
+\]
 
 \newpage
 \subsection*{Multivariate Normal}
@@ -730,9 +745,20 @@ computing examples
 20 Jan - Mixed model prediction, BP, BLUE, BLUP, example algebra in
 discussion
 
-22 Jan - Empirical BLUP, Fay Herriot model, jackknife
+25 Jan - Empirical BLUP, Fay Herriot model, jackknife
 
 27 Jan - EBLUP for random effects, intro to GLM's
+
+1 Feb - GLMM with several examples, Monte carlo and the E-M algorithm,
+importance sampling
+
+3 Feb - Rejection sampling, Markov Chain Monte Carlo (MCMC), Markov chain
+convergence theorem, Gibb's Sampler
+
+8 Feb - Gibbs Sampler, transition kernel, MCMC, threshold model, data
+cloning
+
+10 Feb - Midterm
 
 \subsection*{Math Lectures - 231B}
 
@@ -757,6 +783,15 @@ exponential families, review convexity
 
 27 Jan - Z estimation aka estimating equation estimation, method of
 moments, gamma example, plug in principle
+
+1 Feb - Asymptotics, modes of convergence and associated theorems,
+Borel-Cantelli lemma, generalized Chebyshev
+
+3 Feb - Hoeffding's inequality and proof, strong, weak, and uniform
+consistency
+
+8 Feb - Consistency theorem for MLE's in canonical exp families,
+consistency of M estimator
 
 
 \newpage
