@@ -63,6 +63,17 @@
 \newpage
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
+\begin{verbatim}
+```{r, include=FALSE, results='hide'}
+legend('topright', c('a', 'b', 'c'), pch=1:3)
+boxplot(Y ~ somefactor, data = mydata)
+options(contrasts=c('contr.sum', 'contr.sum'))
+means = tapply(Y, somefactor, mean)
+G = expand.grid(k=1:3, j=1:4, i=1:3)
+leaps::regsubsets(y ~ ., data=d, ...)
+MASS::stepAIC(model0, ...)
+\end{verbatim}
+
 \textbf{Binomial}
 $X \sim B(n, p)$
 \[
@@ -71,10 +82,6 @@ $X \sim B(n, p)$
 \]
 $\Expect X = np, \quad \Var X = np(1-p)$
 
-mgf: $M_X (t) = (pe^t + 1 - p)^n$
-
-Beta is conjugate prior, Fisher info $I(p) = \frac{1}{p(1 - p)}$
-
 \textbf{Poisson}
 $X \sim P(\lambda)$
 \[
@@ -82,11 +89,6 @@ $X \sim P(\lambda)$
     \qquad k = 0, 1, \dots
 \]
 $\Expect X = \lambda, \quad \Var X = \lambda$
-
-mgf: $M_X (t) = e^{\lambda (e^t -1)}$ Use recursive relation to compute
-$\Expect(X_i)$.
-
-Gamma is conjugate prior, Fisher info $I(\lambda) = \frac{1}{\lambda}$
 
 \textbf{Normal}
 $X \sim N(\mu, \Sigma)$, $\Sigma$ positive definite
@@ -98,12 +100,6 @@ $X \sim N(\mu, \Sigma)$, $\Sigma$ positive definite
 \]
 mgf: $M_X (t) = \exp (\mu' t + \frac{1}{2} t' \Sigma t)$
 
-Normal is conj. prior, Fisher info $I(\mu, \sigma^2) = 
-[\begin{smallmatrix}
-        1 / \sigma^2 & 0 \\
-        0 & 1 / 2\sigma^4 \\
-\end{smallmatrix}]$
-
 \textbf{Beta}
 $ X \sim \text{Beta}(\alpha, \beta)$
 \[
@@ -112,13 +108,6 @@ $ X \sim \text{Beta}(\alpha, \beta)$
 \]
 $\Expect X = \frac{\alpha}{\alpha + \beta},
 \quad \Var X = \frac{\alpha \beta}{(\alpha + \beta)^2 (\alpha + \beta + 1)}$
-
-using the beta function:
-\[
-    B(\alpha, \beta) =
-    \frac{\Gamma(\alpha) \Gamma(\beta)}{\Gamma(\alpha+ \beta)} =
-    \int_0^1 t^{\alpha -1} (1-t)^{\beta - 1}dt
-\]
 
 \textbf{Gamma}
 $X \sim \text{Gamma}(\alpha, \beta)$
@@ -129,22 +118,12 @@ $X \sim \text{Gamma}(\alpha, \beta)$
 $\Expect X = \frac{\alpha}{\beta},
 \quad \Var X = \frac{\alpha}{\beta^2}$
 
-mgf: $M_X (t) = (1 - \frac{t}{\beta})^{-\alpha}, t < \beta$
-
 $X \sim \text{Gamma}(\alpha, \beta) \iff \beta X \sim \text{Gamma}(\alpha, 1)$
 
 $X_i \iid \text{Gamma}(\alpha_i, \beta)$, then
 \[
     \sum X_i \sim \text{Gamma}(\sum \alpha_i, \beta)
 \]
-Gamma function: $\Gamma(\alpha) = \int_0^\infty t^{\alpha-1} e^{-t} dt$.
-
-$\Gamma(\frac{1}{2}) = \sqrt{\pi}$.
-
-$\Gamma(\alpha + 1) = \alpha \Gamma(\alpha)$
-
-$\Gamma(k) = (k-1)!$ for $k$ positive integer.
-
 \textbf{Exponential}
 Special case: $X \sim \text{Exp}(\lambda) \equiv \text{Gamma}(1, \lambda)$
 
@@ -168,60 +147,99 @@ f(x) \propto x^{\frac{n}{2} - 1} e^{\frac{-x}{2}},
 $
 
 Let $Z_i$ be iid $N(0, 1)$.
-
 $\sum_{i=1}^n Z_i^2 \sim \chi^2_n$
 
 Noncentral $\chi^2$. Let $Y \sim N(\mu, I)$ be an $n$ vector. Then 
 \[
     \norm{Y}^2 \sim \chi^2_n(\norm{\mu}^2)
 \]
-
-\textbf{F}
+\textbf{F} if num. and den. independent then
 \[
     F(m, n) \equiv \frac{\frac{\chi^2_m}{m}}
         {\frac{\chi^2_n}{n}}
 \]
-Where numerator and denominator are independent $\chi^2$.
-
-\textbf{T}
+\textbf{T} if num. and den. independent then
 \[
     t(n) = \frac{N(0, 1)}
     {\sqrt{\frac{\chi^2_n}{n}}}
 \]
-Where numerator and denominator are independent.
+Conditional pdf:
+\[
+    f_{X|Y}(x | y) \equiv \frac{f_{X, Y}(x, y)}{f_Y(y)}
+\]
+Iterated expectation:
+\[
+    E(Y) = E(E(Y | X))
+\]
+Conditional variance formula:
+\[
+    \Var(Y) = \Var(E(Y | X)) + E(\Var(Y | X))
+\]
+Singular Value Decompostion (SVD) Any matrix $X$ can be written
+\[
+    X = UDV^T
+\]
+with $U, V$ orthogonal, and $D$ diagonal.
 
-\vspace{0.2in}
-\hrule
+Moore Penrose Psuedoinverse $A^+$ exists uniquely for every matrix $A$.
+Properties: $AA^+A = A, \quad A^+AA^+ = A^+$ and $AA^+, A^+A$ are symmetric.
 
-\textbf{Transformations} If $g$ 1:1 with continuous derivatives and nonzero
-Jacobian, and $Y = g(X)$, then the density
+Projection matrix $P$ are symmetric and idempotent. They have eigenvalues
+either 0 or 1.
 \[
-    f_Y(y) = f_X(g^{-1}(y)) |J_{g^{-1}}(y)|
+    P = P^T \qquad P^2 = P
 \]
-For affine transformation $Y = AX + c$ then 
+Covariance of linear transformations
 \[
-    f_Y(y) = f_X(A^{-1}(y - c)) |\det A|^{-1}
+    Cov(Ay, Bx) = A Cov(y, x) B^T
 \]
+Invert $2 \times 2$ matrix:
+$
+    A = 
+    [\begin{smallmatrix}
+        a & b \\
+        c & d \\
+    \end{smallmatrix}]
+$
+\[
+    A^{-1} = 
+    \frac{1}{\det (A)}
+    \begin{bmatrix}
+        d & -b \\
+        -c & a \\
+    \end{bmatrix}
+\]
+Block matrix:
+$
+\begin{bmatrix}
+    A & B \\
+    C & D
+\end{bmatrix}^{-1} =
+$
+\[
+\begin{bmatrix}
+                     (A - BD^{-1}C)^{-1}         & -A^{-1}B(D -
+    CA^{-1}B)^{-1} \\
+                     -D^{-1}C(A - BD^{-1}C)^{-1} & (D - CA^{-1}B)^{-1}  
+\end{bmatrix}
+\]
+Sum identities:
+\[
+    \sum_{k=0}^{\infty} p^k = \frac{p}{1 - p} \qquad 
+    \sum_{k=0}^{\infty} k p^k = \frac{p}{(1 - p)^2} \qquad |p| < 1
+\]
+Integration by parts:
+\[
+    \int uv' = uv - \int u'v
+\]
+Matrix / Vector differentiation
 
-Moment generating functions determine distribution
-\[
-    M_X(t) \equiv \Expect (e^{tX}),
-    \quad M_X'(0) = \Expect(X)
-\]
-$X_i$ independently distributed $\iff$
-\[
-    M_{\sum X_i} (t) = \prod M_{X_i} (t)
-\]
-\textbf{Characteristic function}
-\[
-    \phi(t) = \Expect (e^{i t^T X)}
-    = \Expect (\cos (t^T X)) + i \Expect(\sin(t^T X))
-\]
-Order statistics for sorted sample $X_{(1)}, \dots, X_{(n)}$ has pdf:
-\[
-    n! \prod_{i=1}^n f(X_{(i)}) \quad I(X_{(1)} < \dots < X_{(n)})
-\]
+$\frac{\partial A^T \beta}{\partial \beta} = A$, 
+$\frac{\partial \beta^T A \beta}{\partial \beta} = (A + A^t) \beta =
+2A\beta$ for $A$ symmetric.
 
+$\frac{\partial}{\partial \theta_i} \log (|A|) =
+tr( A^{-1} \frac{\partial A}{\partial \theta_i}$)
 
 \newpage
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -286,35 +304,27 @@ bootstrap and asymptotic covariance matrix of the estimates.
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 \subsection*{232A}
-\subsection*{Linear Models}
 
 Least Squares Principle
 \[
     \text{arg min}_\beta \norm{Y - X\beta}^2
 \]
-
-Normal Model 
-\[
-    Y = X\beta + \epsilon, \qquad \epsilon \sim N(0, \sigma^2 I)
-\]
-
 Normal Equations - Any $b$ satistfying this solves the least squares
 \[
     X^T X b = X^T y
 \]
-
 Gauss Markov Theorem - $\hat{\beta}$ is Best Linear Unbiased
 Estimator (BLUE) of $\beta$.
 \[
     \hat{\beta} = (X^T X)^{-1} X^T y \sim N(\beta, \sigma^2 (X^T X)^{-1})
 \]
-
-Estimating the variance: $\frac{\norm{y - X \hat{\beta}}^2}{\sigma^2} \sim
-\chi^2_{n-p}$.
+variance: 
 \[
+    \frac{\norm{y - X \hat{\beta}}^2}{\sigma^2} \sim
+\chi^2_{n-p}.
+    \qquad \implies \qquad
     \hat{\sigma}^2 = \frac{\norm{y - X \hat{\beta}}^2}{n - p}
 \]
-
 Use t test for hypothesis testing and confidence intervals for the value of
 a particular $\beta_j$ coefficient. 
 Let $w_{ii}$ be the $i$th diagonal entry of $(X^T X)^{-1}$.
@@ -339,7 +349,6 @@ Simultaneous (Working-Hotelling) confidence interval for $\Expect (y_h)$:
     p}{\hat{\sigma}^2}
     \sim F_{p, n - p}
 \]
-
 General linear tests. Partition $\beta = (\beta_1, \beta_2)$ where $\beta_1$
 is an $r$ vector and $\beta_2$ is $p - r$. Null hypothesis $H_0: \beta_2 =
 \beta_2^*$ (often 0), and $H_a: \beta_2 \neq \beta_2^*$. Then
@@ -353,17 +362,12 @@ Under $H_0$:
          {\frac{SSE_f}{n - p}}
          \sim F_{p-r, n-p}
 \]
-
 Alternate forms of linear test, and testing a linear combination if $R\beta
 = r$, for $R$ full rank $s \times p$ matrix.
 \[
     \frac{(R \hat{\beta} - r)^T (R(X^T X)^{-1} R^T)^{-1} (R \beta - r) / s}
     {\hat{\sigma}^2} \sim F_{s, n-p}
 \]
-
-
-\subsection*{Model selection and diagnostics}
-
 $SSTO = \sum_{i=1}^n (y_i - \bar{y}) = \norm{y - \bar{y} 1_n }^2
         = \norm{(I - J)y}^2$
 
@@ -372,6 +376,12 @@ $SSR = \sum_{i=1}^n (\hat{y}_i - \bar{y}) = \norm{\hat{y} - \bar{y} 1_n}^2
 
 $SSE = \sum_{i=1}^n (y_i - \hat{y}_i) = \norm{y - \hat{y}}^2
         = \norm{(I - H)y}^2$
+
+\begin{verbatim}
+SSE = sum(residuals(fit)^2)
+SSR = sum((fitted(fit) - mean(y))^2)
+SSTO = sum((y - mean(y))^2)
+\end{verbatim}
 
 If the model contains the intercept in the column space of $X$  then $SSTO = SSR + SSE$.
 
@@ -385,6 +395,10 @@ $BIC = n \log SSE + p \log n$
 
 $Cp = \frac{SSE}{MSE} - (n - 2p)$
 
+\begin{verbatim}
+influence.measures, cooks.distance
+\end{verbatim}
+
 Residuals: $\hat{\epsilon}_i = y_i - \hat{y}_i$
 
 Studentized residuals (\texttt{rstandard} in R): 
@@ -393,6 +407,13 @@ Studentized residuals (\texttt{rstandard} in R):
     \frac{\hat{\epsilon}_i}{ s \{ \hat{\epsilon}_i \} } = 
     \frac{\hat{\epsilon}_i}{\hat{\sigma} \sqrt{1 - h_{ii}}}
 \]
+Studentized deleted residuals (\texttt{rstudent} in R):  
+\[
+    t_i = \frac{\hat{\epsilon}_i}{\sqrt{MSE_{(-i)} (1 - h_{ii})}} \sim t_{n - p -1}
+\]
+Where $MSE_{(-i)} = SSE_{(-i)} / (n - 1 - p)$ and
+$SSE_{(-i)} = SSE - \frac{\hat{\epsilon}_i}{1 - h_{ii}}$ can be used to
+calculate without refitting model.
 
 Prediction sum of squares (PRESS) is the same as leave one out cross
 validation (LOOCV). Prediction error on $i$th observation is called deleted
@@ -403,13 +424,15 @@ residuals:
 Works for ridge regression also, letting 
 $H = X(X^T X + \lambda I)^{-1} X^T$.
 
-Studentized deleted residuals: 
+\textbf{Ridge Regression} for $\lambda > 0$ solves
 \[
-    t_i = \frac{\hat{\epsilon}_i}{\sqrt{MSE_{(-i)} (1 - h_{ii})}} \sim t_{n - p -1}
+    \min_\beta ||Y - X\beta||^2 + \lambda ||\beta||^2
 \]
-Where $MSE_{(-i)} = SSE_{(-i)} / (n - 1 - p)$ and
-$SSE_{(-i)} = SSE - \frac{\hat{\epsilon}_i}{1 - h_{ii}}$ can be used to
-calculate without refitting model.
+\begin{verbatim}
+W = solve(XtX + lambda * Ip)
+betahat = W %*% t(X) %*% y
+\end{verbatim}
+
 
 \subsection*{ANOVA}
 
@@ -434,10 +457,22 @@ Tukey's works for all pairwise contrasts.
 Scheffe's and extended Tukey works for all contrasts.
 Bonferroni's is for a limited number of pre specified contrasts.
 
-\textbf{Ridge Regression} for $\lambda > 0$ solves
-\[
-    \min_\beta ||Y - X\beta||^2 + \lambda ||\beta||^2
-\]
+Example of contrast $L$ with standard error $se(\hat{L}) = \hat{\sigma}
+\sqrt{\sum_{i=1}^I c_i^2 / n_i}$.
+Each way to compute a confidence interval for $L$ can be expressed in the form:
+$$
+    \hat{L} \pm se(\hat{L}) \times \text{multiplier}
+$$
+
+\begin{verbatim}
+m = c(simple = qt(1 - alpha / 2, fit$df.residual)
+, bonferroni = qt(1 - alpha / (2 * 20), fit$df.residual)
+, ex_tukey = qtukey(1 - alpha, I, n - I)
+, scheffe = sqrt((I - 1) *
+                qf(1 - alpha, I - 1, fit$df.residual)))
+width = seL * multipliers
+TukeyHSD(aov(y ~ x, data))  # pairwise intervals
+\end{verbatim}
 
 \newpage
 
@@ -490,97 +525,7 @@ distribution
     \Sigma_{22} - \Sigma_{21} \Sigma_{11}^{-1} \Sigma_{12})
 \]
 
-\subsection*{Conditional Distributions}
-
-Conditional pdf:
-\[
-    f_{X|Y}(x | y) \equiv \frac{f_{X, Y}(x, y)}{f_Y(y)}
-\]
-Iterated expectation:
-\[
-    E(Y) = E(E(Y | X))
-\]
-Conditional variance formula:
-\[
-    \Var(Y) = \Var(E(Y | X)) + E(\Var(Y | X))
-\]
-
 \newpage
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-
-\subsection*{General Techniques}
-
-Singular Value Decompostion (SVD) Any matrix $X$ can be written
-\[
-    X = UDV^T
-\]
-with $U, V$ orthogonal, and $D$ diagonal.
-
-Moore Penrose Psuedoinverse $A^+$ exists uniquely for every matrix $A$.
-
-Projection matrix $P$ are symmetric and idempotent. They have eigenvalues
-either 0 or 1.
-\[
-    P = P^T \qquad P^2 = P
-\]
-
-Covariance of linear transformations
-\[
-    Cov(Ay, Bx) = A Cov(y, x) B^T
-\]
-Invert $2 \times 2$ matrix:
-$
-    A = 
-    [\begin{smallmatrix}
-        a & b \\
-        c & d \\
-    \end{smallmatrix}]
-$
-\[
-    A^{-1} = 
-    \frac{1}{\det (A)}
-    \begin{bmatrix}
-        d & -b \\
-        -c & a \\
-    \end{bmatrix}
-\]
-Block matrix:
-$
-\begin{bmatrix}
-    A & B \\
-    C & D
-\end{bmatrix}^{-1} =
-$
-\[
-\begin{bmatrix}
-                     (A - BD^{-1}C)^{-1}         & -A^{-1}B(D -
-    CA^{-1}B)^{-1} \\
-                     -D^{-1}C(A - BD^{-1}C)^{-1} & (D - CA^{-1}B)^{-1}  
-\end{bmatrix}
-\]
-
-Sum identities:
-\[
-    \sum_{k=0}^{\infty} p^k = \frac{p}{1 - p} \qquad 
-    \sum_{k=0}^{\infty} k p^k = \frac{p}{(1 - p)^2} \qquad |p| < 1
-\]
-
-Integration by parts:
-\[
-    \int uv' = uv - \int u'v
-\]
-
-Matrix / Vector differentiation
-
-$\frac{\partial A^T \beta}{\partial \beta} = A$, 
-$\frac{\partial \beta^T A \beta}{\partial \beta} = (A + A^t) \beta =
-2A\beta$ for $A$ symmetric.
-
-$\frac{\partial}{\partial \theta_i} \log (|A|) =
-tr( A^{-1} \frac{\partial A}{\partial \theta_i}$)
-
-\newpage
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-
 
 \end{document}
